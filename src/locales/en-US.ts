@@ -86,8 +86,8 @@ export default {
                 newLocale: ({ locale }: ILocale): string => `\`✅\` The locale of **Stelle** is now: \`${locale}\``,
             },
             ping: {
-                response: ({ wsPing, clientPing, shardPing }: IPing): string =>
-                    `\`🌐\` Pong! (**Client**: \`${wsPing}ms\` - **API**: \`${clientPing}ms\` - **Shard**: \`${shardPing}ms\`)`,
+                response: ({ wsPing, clientPing, shardPing, shardId }: IPing): string =>
+                    `\`🌐\` Pong! (**Client**: \`${wsPing}ms\` - **API**: \`${clientPing}ms\` - **Shard (${shardId})**: \`${shardPing}ms\`)`,
                 message: "`🪶` Calculating...",
             },
             play: {
@@ -450,5 +450,5 @@ type IPlayTrack = { title: string; url: string; duration: string; volume: number
 type IPlayList = { query: string; playlist: string; volume: number; requester: string; tracks: number };
 type IChannel = { channelId: string };
 type IUser = { userId: string };
-type IPing = { wsPing: number; clientPing: number; shardPing: number };
+type IPing = { wsPing: number; clientPing: number; shardPing: number; shardId: number };
 type ICooldown = { time: number };
