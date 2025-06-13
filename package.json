@@ -57,7 +57,7 @@
         "ioredis": "^5.6.1",
         "lavalink-client": "^2.5.6",
         "meowdb": "^2.2.3",
-        "seyfert": "github:tiramisulabs/seyfert",
+        "seyfert": "github:tiramisulabs/seyfert#5de23ffe58c77f99fad04d8bc7c0d976f4efd83d",
         "yunaforseyfert": "^1.1.3"
     },
     "devDependencies": {
@@ -66,7 +66,7 @@
         "husky": "^9.1.7",
         "lint-staged": "^16.1.0",
         "prisma": "^6.9.0",
-        "tsx": "^4.20.2",
+        "tsx": "4.19.4",
         "typescript": "^5.8.3"
     },
     "imports": {

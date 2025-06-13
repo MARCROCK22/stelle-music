@@ -1,64 +1,62 @@
 import type { StelleConfiguration, StelleEnvironment } from "#stelle/types";
-import { Sessions } from "#stelle/utils/manager/sessions.js";
+import { Constants } from "#stelle/utils/data/constants.js";
 
-import { ms } from "#stelle/utils/functions/time.js";
+import { join, resolve } from "node:path";
+import { pathToFileURL } from "node:url";
+import { InvalidConfiguration } from "../errors.js";
 
 // extract the environment variables from the .env file
 const { TOKEN, DATABASE_URL, ERRORS_WEBHOOK, REDIS_HOST, REDIS_PORT, REDIS_PASSWORD } = process.env;
 
 /**
+ *
+ * The extensions that the configuration files can have.
+ * @type {string[]}
+ * @default [".ts", ".js"]
+ */
+const extensions: string[] = [".ts", ".js"];
+
+/**
+ *
+ * The filenames that the configuration files can have.
+ * @type {string[]}
+ * @default ["local.config", "default.config"]
+ */
+const filenames: string[] = ["local.config", "default.config"];
+
+/**
+ * The base directory where the configuration files are located.
+ * @type {string}
+ */
+const base: string = join(Constants.WorkingDirectory(), "config");
+
+/**
+ *
+ * The directory where the configuration files are located.
+ * @type {string}
+ */
+const directory: string = resolve(process.cwd(), base);
+
+/**
  * The configuration of the bot.
  * @type {StelleConfiguration}
  */
-export const Configuration: StelleConfiguration = {
-    defaultLocale: "en-US",
-    defaultPrefix: "stelle",
-    prefixes: ["st!"],
-    fileName: "./cache/commands.json",
-    cacheSize: 5,
-    defaultSearchPlatform: "spotify",
-    defaultVolume: 100,
-    lyricsLines: 10,
-    disconnectTime: ms("30s"),
-    inviteLink:
-        "https://discord.com/oauth2/authorize?client_id=1241085977544359968&permissions=36793344&integration_type=0&scope=bot+applications.commands",
-    githubLink: "https://github.com/Ganyu-Studios/stelle-music",
-    nodes: Sessions.resolve({
-        id: "SN #1", // <--- AKA Stelle Node
-        host: "localhost",
-        port: 2333,
-        authorization: "ganyuontopuwu",
-        secure: false,
-        retryAmount: 25,
-        retryDelay: ms("20s"),
+export const Configuration: StelleConfiguration = await Promise.any<StelleConfiguration>(
+    extensions.map((ext) => {
+        return Promise.any<StelleConfiguration>(
+            filenames.map(async (filename) => {
+                if (!filename.includes(".config")) throw new InvalidConfiguration(`Filename '${filename}' does not include '.config'`);
+
+                const file = join(directory, `${filename}${ext}`);
+                const i = await import(`${pathToFileURL(file)}`);
+
+                return i.default ?? i;
+            }),
+        );
     }),
-    developerIds: [
-        "391283181665517568", // <-- JustEvil
-    ],
-    guildIds: [
-        "1075885077529120798", // <-- PenwinSquad
-        "970508955363188736", // <-- Ganyu Studios
-        "1213361742571241492", // <-- Team Genesis
-        "1003825077969764412", // <-- Seyfert
-    ],
-    color: {
-        success: 0x8d86a8,
-        extra: 0xece8f1,
-    },
-    channels: {
-        guildsId: "1061102025548509255", // <-- Guild logs channel,
-        errorsId: "1104515104315289640", // <-- Errors logs channel.
-    },
-    permissions: {
-        stagePermissions: ["MuteMembers"],
-        voicePermissions: ["ViewChannel", "Connect", "Speak"],
-    },
-    sessions: {
-        enabled: true,
-        resumeTime: ms("1min"),
-        resumePlayers: true,
-    },
-};
+).catch(() => {
+    throw new InvalidConfiguration(`No config file found in '${base}' with any of the filenames: \n- ${filenames.join("\n- ")}`);
+});
 
 /**
  * The environment variables.
