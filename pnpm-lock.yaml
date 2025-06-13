@@ -25,17 +25,17 @@ importers:
         version: 2.2.3
       seyfert:
         specifier: github:tiramisulabs/seyfert
-        version: https://codeload.github.com/tiramisulabs/seyfert/tar.gz/5de23ffe58c77f99fad04d8bc7c0d976f4efd83d
+        version: https://codeload.github.com/tiramisulabs/seyfert/tar.gz/0b00e2d19bca9b2787dcf25268513f9339f03fd3
       yunaforseyfert:
-        specifier: ^1.1.2
-        version: 1.1.2
+        specifier: ^1.1.3
+        version: 1.1.3
     devDependencies:
       '@biomejs/biome':
         specifier: ^1.9.4
         version: 1.9.4
       '@types/node':
-        specifier: ^22.15.30
-        version: 22.15.30
+        specifier: ^24.0.1
+        version: 24.0.1
       husky:
         specifier: ^9.1.7
         version: 9.1.7
@@ -46,8 +46,8 @@ importers:
         specifier: ^6.9.0
         version: 6.9.0(typescript@5.8.3)
       tsx:
-        specifier: ^4.19.4
-        version: 4.19.4
+        specifier: ^4.20.2
+        version: 4.20.2
       typescript:
         specifier: ^5.8.3
         version: 5.8.3
@@ -290,8 +290,8 @@ packages:
   '@prisma/get-platform@6.9.0':
     resolution: {integrity: sha512-/B4n+5V1LI/1JQcHp+sUpyRT1bBgZVPHbsC4lt4/19Xp4jvNIVcq5KYNtQDk5e/ukTSjo9PZVAxxy9ieFtlpTQ==}
 
-  '@types/node@22.15.30':
-    resolution: {integrity: sha512-6Q7lr06bEHdlfplU6YRbgG1SFBdlsfNC4/lX+SkhiTs0cpJkOElmWls8PxDFv4yY/xKb8Y6SO0OmSX4wgqTZbA==}
+  '@types/node@24.0.1':
+    resolution: {integrity: sha512-MX4Zioh39chHlDJbKmEgydJDS3tspMP/lnQC67G3SWsTnb9NeYVWOjkxpOSy4oMfPs4StcWHwBrvUb4ybfnuaw==}
 
   ansi-escapes@7.0.0:
     resolution: {integrity: sha512-GdYO7a61mR0fOlAsvC9/rIHf7L96sBc6dEWzeOu+KAea5bZyQRPIpojrVoI4AXGJS/ycu/fBTdLrUkA4ODrvjw==}
@@ -491,9 +491,9 @@ packages:
   rfdc@1.4.1:
     resolution: {integrity: sha512-q1b3N5QkRUWUl7iyylaaj3kOpIT0N2i9MqIEQXP73GVsN9cw3fdx8X63cEmWhJGi2PPCF23Ijp7ktmd39rawIA==}
 
-  seyfert@https://codeload.github.com/tiramisulabs/seyfert/tar.gz/5de23ffe58c77f99fad04d8bc7c0d976f4efd83d:
-    resolution: {tarball: https://codeload.github.com/tiramisulabs/seyfert/tar.gz/5de23ffe58c77f99fad04d8bc7c0d976f4efd83d}
-    version: 3.1.2
+  seyfert@https://codeload.github.com/tiramisulabs/seyfert/tar.gz/0b00e2d19bca9b2787dcf25268513f9339f03fd3:
+    resolution: {tarball: https://codeload.github.com/tiramisulabs/seyfert/tar.gz/0b00e2d19bca9b2787dcf25268513f9339f03fd3}
+    version: 3.2.0
 
   signal-exit@4.1.0:
     resolution: {integrity: sha512-bzyZ1e88w9O1iNJbKnOlvYTrWPDl46O1bG0D3XInv+9tkPrxrN8jUUTiFlDkkmKWgn1M6CfIA13SuGqOa9Korw==}
@@ -529,8 +529,8 @@ packages:
   tslib@2.8.1:
     resolution: {integrity: sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==}
 
-  tsx@4.19.4:
-    resolution: {integrity: sha512-gK5GVzDkJK1SI1zwHf32Mqxf2tSJkNx+eYcNly5+nHvWqXUJYUkWBQtKauoESz3ymezAI++ZwT855x5p5eop+Q==}
+  tsx@4.20.2:
+    resolution: {integrity: sha512-He0ZWr41gLa4vD30Au3yuwpe0HXaCZbclvl8RBieUiJ9aFnPMWUPIyvw3RU8+1Crjfcrauvitae2a4tUzRAGsw==}
     engines: {node: '>=18.0.0'}
     hasBin: true
 
@@ -539,8 +539,8 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
-  undici-types@6.21.0:
-    resolution: {integrity: sha512-iwDZqg0QAGrg9Rav5H4n0M64c3mkR59cJ6wQp+7C4nI0gsmExaedaYLNO44eT4AtBBwjbTiGPMlt2Md0T9H9JQ==}
+  undici-types@7.8.0:
+    resolution: {integrity: sha512-9UJ2xGDvQ43tYyVMpuHlsgApydB8ZKfVYTsLDhXkFL/6gfkp+U8xTGdh8pMJv1SpZna0zxG1DwsKZsreLbXBxw==}
 
   wrap-ansi@9.0.0:
     resolution: {integrity: sha512-G8ura3S+3Z2G+mkgNRq8dqaFZAuxfsxpBB8OCTGRTCtp+l/v9nbFNmCUP1BZMts3G1142MsZfn6eeUKrr4PD1Q==}
@@ -563,8 +563,8 @@ packages:
     engines: {node: '>= 14.6'}
     hasBin: true
 
-  yunaforseyfert@1.1.2:
-    resolution: {integrity: sha512-KvGowjCiRjIXUAWLR0ZAvIZZTIPfhS+DWmrRiO7iUUunvmbMINlDr/yYhEPcaeXAuZWdJUZfBVMED2gMhUlM3Q==}
+  yunaforseyfert@1.1.3:
+    resolution: {integrity: sha512-VY66b45nbxHMkXln72kwaOd/8ozfukg7ySV6k0ww3s+xWGAt9WUZK16k7gHrj5DdG+jF+otPc2A1HnVbKlNJjA==}
 
 snapshots:
 
@@ -710,9 +710,9 @@ snapshots:
     dependencies:
       '@prisma/debug': 6.9.0
 
-  '@types/node@22.15.30':
+  '@types/node@24.0.1':
     dependencies:
-      undici-types: 6.21.0
+      undici-types: 7.8.0
 
   ansi-escapes@7.0.0:
     dependencies:
@@ -913,7 +913,7 @@ snapshots:
 
   rfdc@1.4.1: {}
 
-  seyfert@https://codeload.github.com/tiramisulabs/seyfert/tar.gz/5de23ffe58c77f99fad04d8bc7c0d976f4efd83d: {}
+  seyfert@https://codeload.github.com/tiramisulabs/seyfert/tar.gz/0b00e2d19bca9b2787dcf25268513f9339f03fd3: {}
 
   signal-exit@4.1.0: {}
 
@@ -947,7 +947,7 @@ snapshots:
 
   tslib@2.8.1: {}
 
-  tsx@4.19.4:
+  tsx@4.20.2:
     dependencies:
       esbuild: 0.25.5
       get-tsconfig: 4.10.1
@@ -956,7 +956,7 @@ snapshots:
 
   typescript@5.8.3: {}
 
-  undici-types@6.21.0: {}
+  undici-types@7.8.0: {}
 
   wrap-ansi@9.0.0:
     dependencies:
@@ -968,4 +968,4 @@ snapshots:
 
   yaml@2.8.0: {}
 
-  yunaforseyfert@1.1.2: {}
+  yunaforseyfert@1.1.3: {}
