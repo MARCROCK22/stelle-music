@@ -1,9 +1,10 @@
 import type { StelleConfiguration, StelleEnvironment } from "#stelle/types";
+
 import { Constants } from "#stelle/utils/data/constants.js";
+import { InvalidConfiguration } from "#stelle/utils/errors.js";
 
 import { join, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
-import { InvalidConfiguration } from "../errors.js";
 
 // extract the environment variables from the .env file
 const { TOKEN, DATABASE_URL, ERRORS_WEBHOOK, REDIS_HOST, REDIS_PORT, REDIS_PASSWORD } = process.env;
@@ -55,7 +56,9 @@ export const Configuration: StelleConfiguration = await Promise.any<StelleConfig
         );
     }),
 ).catch(() => {
-    throw new InvalidConfiguration(`No config file found in '${base}' with any of the filenames: \n- ${filenames.join("\n- ")}`);
+    throw new InvalidConfiguration(
+        `No config file found in '/${base.replaceAll("\\", "/")}' with any of the filenames: \n- ${filenames.join("\n- ")}`,
+    );
 });
 
 /**
