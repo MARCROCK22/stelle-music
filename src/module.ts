@@ -26,5 +26,6 @@ declare module "seyfert" {
 
     interface ExtendedRCLocations {
         lavalink: string;
+        config: string;
     }
 }

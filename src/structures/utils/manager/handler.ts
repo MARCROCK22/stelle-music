@@ -101,23 +101,27 @@ export class LavalinkHandler extends BaseHandler {
      * @returns {Promise<void>} Boo! A promise.
      */
     public async reload(name: LavalinkEventNames): Promise<void> {
-        const event: Lavalink | undefined = this.values.get(name);
-        if (!event?.filepath) return;
+        const oldEvent: Lavalink | undefined = this.values.get(name);
+        if (!oldEvent?.filepath) return;
+
+        // don't ask... just... don't ask.
+        if (oldEvent.isManager()) this.client.manager.removeListener(oldEvent.name, oldEvent.run as never);
+        else if (oldEvent.isNode()) this.client.manager.nodeManager.removeListener(oldEvent.name, oldEvent.run as never);
 
         // i hate this so much, but it's the only way to make it work.
-        const newEvent: Lavalink = await customImport<Lavalink>(event.filepath);
+        const newEvent: Lavalink = await customImport<Lavalink>(oldEvent.filepath);
         if (!newEvent) return;
 
-        newEvent.filepath = event.filepath;
+        newEvent.filepath = oldEvent.filepath;
 
         const run = (...args: LavalinkEventParameters) => newEvent.run(this.client, ...args);
 
-        if (event.isNode()) {
-            if (event.once) this.client.manager.nodeManager.once(event.name, run);
-            else this.client.manager.nodeManager.on(event.name, run);
-        } else if (event.isManager()) {
-            if (event.once) this.client.manager.once(event.name, run);
-            else this.client.manager.on(event.name, run);
+        if (newEvent.isNode()) {
+            if (newEvent.once) this.client.manager.nodeManager.once(newEvent.name, run);
+            else this.client.manager.nodeManager.on(newEvent.name, run);
+        } else if (newEvent.isManager()) {
+            if (newEvent.once) this.client.manager.once(newEvent.name, run);
+            else this.client.manager.on(newEvent.name, run);
         }
 
         this.values.set(newEvent.name, newEvent);
@@ -131,10 +135,6 @@ export class LavalinkHandler extends BaseHandler {
     // this is intented to be used in development only, because
     // increments the memory usage of the bot... but meh.
     async reloadAll(): Promise<void> {
-        // don't ask... just... don't ask.
-        this.client.manager.removeAllListeners();
-        this.client.manager.nodeManager.removeAllListeners();
-
         for (const event of this.values.keys()) {
             await this.reload(event);
         }
