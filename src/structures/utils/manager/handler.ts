@@ -116,12 +116,12 @@ export class LavalinkHandler extends BaseHandler {
 
         const run = (...args: LavalinkEventParameters) => newEvent.run(this.client, ...args);
 
-        if (oldEvent.isNode()) {
-            if (oldEvent.once) this.client.manager.nodeManager.once(oldEvent.name, run);
-            else this.client.manager.nodeManager.on(oldEvent.name, run);
-        } else if (oldEvent.isManager()) {
-            if (oldEvent.once) this.client.manager.once(oldEvent.name, run);
-            else this.client.manager.on(oldEvent.name, run);
+        if (newEvent.isNode()) {
+            if (newEvent.once) this.client.manager.nodeManager.once(newEvent.name, run);
+            else this.client.manager.nodeManager.on(newEvent.name, run);
+        } else if (newEvent.isManager()) {
+            if (newEvent.once) this.client.manager.once(newEvent.name, run);
+            else this.client.manager.on(newEvent.name, run);
         }
 
         this.values.set(newEvent.name, newEvent);
