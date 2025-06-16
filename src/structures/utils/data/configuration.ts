@@ -1,65 +1,59 @@
-import type { StelleConfiguration, StelleEnvironment } from "#stelle/types";
+import type { LoadableStelleConfiguration, StelleConfiguration, StelleEnvironment } from "#stelle/types";
 
-import { Constants } from "#stelle/utils/data/constants.js";
 import { InvalidConfiguration } from "#stelle/utils/errors.js";
 
-import { join, resolve } from "node:path";
+import { join } from "node:path";
 import { pathToFileURL } from "node:url";
+import { BaseClient } from "seyfert/lib/client/base.js";
 
 // extract the environment variables from the .env file
 const { TOKEN, DATABASE_URL, ERRORS_WEBHOOK, REDIS_HOST, REDIS_PORT, REDIS_PASSWORD } = process.env;
 
 /**
- *
- * The extensions that the configuration files can have.
- * @type {string[]}
- * @default [".ts", ".js"]
+ * The flag to check if the configuration is initialized.
+ * @type {boolean}
  */
-const extensions: string[] = [".ts", ".js"];
-
-/**
- *
- * The filenames that the configuration files can have.
- * @type {string[]}
- * @default ["local.config", "default.config"]
- */
-const filenames: string[] = ["local.config", "default.config"];
-
-/**
- * The base directory where the configuration files are located.
- * @type {string}
- */
-const base: string = join(Constants.WorkingDirectory(), "config");
-
-/**
- *
- * The directory where the configuration files are located.
- * @type {string}
- */
-const directory: string = resolve(process.cwd(), base);
+let isInitialized: boolean = false;
 
 /**
  * The configuration of the bot.
  * @type {StelleConfiguration}
  */
-export const Configuration: StelleConfiguration = await Promise.any<StelleConfiguration>(
-    extensions.map((ext) => {
-        return Promise.any<StelleConfiguration>(
-            filenames.map(async (filename) => {
-                if (!filename.includes(".config")) throw new InvalidConfiguration(`Filename '${filename}' does not include '.config'`);
+//@ts-expect-error The configuration is dynamically loaded.
+export const Configuration: LoadableStelleConfiguration = {
+    async load() {
+        if (isInitialized) throw new InvalidConfiguration("Configuration is already initialized. You can't call `load()` multiple times.");
 
-                const file = join(directory, `${filename}${ext}`);
-                const i = await import(`${pathToFileURL(file)}`);
+        const directory: string = await BaseClient.prototype.getRC().then((i) => i.locations.config);
+        const filenames: string[] = ["local.config", "default.config"];
+        const extensions: string[] = [".ts", ".js"];
 
-                return i.default ?? i;
+        Object.assign(
+            this,
+            await Promise.any<StelleConfiguration>(
+                extensions.map((ext) => {
+                    return Promise.any<StelleConfiguration>(
+                        filenames.map(async (filename) => {
+                            if (!filename.includes(".config"))
+                                throw new InvalidConfiguration(`Filename '${filename}' does not include '.config'`);
+
+                            const file = join(directory, `${filename}${ext}`);
+                            const i = await import(`${pathToFileURL(file)}`);
+
+                            return i.default ?? i;
+                        }),
+                    );
+                }),
+            ).catch(() => {
+                throw new InvalidConfiguration(
+                    `No config file found in '/config/' with any of the filenames: \n- ${filenames.join("\n- ")}`,
+                );
             }),
         );
-    }),
-).catch(() => {
-    throw new InvalidConfiguration(
-        `No config file found in '/${base.replaceAll("\\", "/")}' with any of the filenames: \n- ${filenames.join("\n- ")}`,
-    );
-});
+
+        isInitialized = true;
+    },
+};
 
 /**
  * The environment variables.

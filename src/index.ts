@@ -1,6 +1,10 @@
 import "dotenv/config";
 
+import { Configuration } from "#stelle/utils/data/configuration.js";
 import { getWatermark } from "#stelle/utils/functions/logger.js";
+
+// The configuration now is dynamically loaded, so we need to call it first.
+await Configuration.load();
 
 getWatermark();
 

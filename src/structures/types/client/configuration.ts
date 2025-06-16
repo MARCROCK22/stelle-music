@@ -182,6 +182,17 @@ export interface StelleConfiguration {
 }
 
 /**
+ * The loadable configuration interface.
+ */
+export interface LoadableStelleConfiguration extends StelleConfiguration {
+    /**
+     * Loads the configuration.
+     * @returns {Promise<void>} A promise that resolves when the configuration is loaded.
+     */
+    load(): Promise<void>;
+}
+
+/**
  * The environment variables interface.
  */
 export interface StelleEnvironment {
