@@ -4,7 +4,6 @@ import { InvalidConfiguration } from "#stelle/utils/errors.js";
 
 import { join } from "node:path";
 import { pathToFileURL } from "node:url";
-import { BaseClient } from "seyfert/lib/client/base.js";
 
 // extract the environment variables from the .env file
 const { TOKEN, DATABASE_URL, ERRORS_WEBHOOK, REDIS_HOST, REDIS_PORT, REDIS_PASSWORD } = process.env;
@@ -23,6 +22,9 @@ let isInitialized: boolean = false;
 export const Configuration: LoadableStelleConfiguration = {
     async load() {
         if (isInitialized) throw new InvalidConfiguration("Configuration is already initialized. You can't call `load()` multiple times.");
+
+        // *cries in cocogoat*
+        const { BaseClient } = await import("seyfert/lib/client/base.js");
 
         const directory: string = await BaseClient.prototype.getRC().then((i) => i.locations.config);
         const filenames: string[] = ["local.config", "default.config"];
