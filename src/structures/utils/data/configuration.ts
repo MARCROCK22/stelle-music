@@ -30,23 +30,31 @@ export const Configuration: LoadableStelleConfiguration = {
         const filenames: string[] = ["local.config", "default.config"];
         const extensions: string[] = [".ts", ".js"];
 
+        let found = false;
+
         for (const filename of filenames) {
             for (const ext of extensions) {
                 const file = join(directory, `${filename}${ext}`);
 
                 try {
-                    const i = await import(`${pathToFileURL(file)}`);
+                    const i = await import(`${pathToFileURL(file)}`).catch(() => null);
+                    if (!i) continue;
+
                     const x = i.default ?? i;
+                    if (!x || (typeof x === "object" && !Object.keys(x).length)) continue;
 
                     Object.assign(this, x);
+                    found = true;
 
-                    return;
-                } catch {
-                    throw new InvalidConfiguration(
-                        `No config file found in '/config/' with any of the filenames: \n- ${filenames.join("\n- ")}`,
-                    );
-                }
+                    break;
+                } catch {}
             }
+
+            if (found) break;
+        }
+
+        if (!found) {
+            throw new InvalidConfiguration(`No config file found in '/config/' with any of the filenames: \n- ${filenames.join("\n- ")}`);
         }
 
         isInitialized = true;
