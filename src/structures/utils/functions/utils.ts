@@ -1,13 +1,11 @@
-import { ActionRow, type AnyContext, type Button, type DefaultLocale, type TopLevelComponents, User, extendContext } from "seyfert";
+import { inspect } from "node:util";
 
 import type { Player } from "lavalink-client";
+import { ActionRow, type AnyContext, type Button, type DefaultLocale, extendContext, type TopLevelComponents, User } from "seyfert";
 import { resolvePartialEmoji } from "seyfert/lib/common/index.js";
 import { type APIMessageComponentEmoji, ButtonStyle, ComponentType, type LocaleString } from "seyfert/lib/types/index.js";
-
 import type { EditButtonOptions, Omit, StelleUser } from "#stelle/types";
 import { InvalidRow } from "#stelle/utils/errors.js";
-
-import { inspect } from "node:util";
 
 /**
  * The webhook object is used to parse the webhook url.

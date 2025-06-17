@@ -2,6 +2,7 @@ import {
     ActionRow,
     Command,
     ContextMenuCommand,
+    createStringOption,
     Declare,
     Embed,
     type GuildCommandContext,
@@ -11,14 +12,12 @@ import {
     StringSelectOption,
     SubCommand,
     type WebhookMessage,
-    createStringOption,
 } from "seyfert";
-import { StelleOptions } from "#stelle/utils/decorator.js";
-
 import { EmbedColors } from "seyfert/lib/common/index.js";
 import type { APIApplicationCommandOption, ApplicationCommandOptionType, LocaleString } from "seyfert/lib/types/index.js";
 import { MessageFlags } from "seyfert/lib/types/index.js";
 import { StelleCategory } from "#stelle/types";
+import { StelleOptions } from "#stelle/utils/decorator.js";
 import { getFormattedOptions } from "#stelle/utils/functions/options.js";
 import { TimeFormat } from "#stelle/utils/functions/time.js";
 import { sliceText } from "#stelle/utils/functions/utils.js";

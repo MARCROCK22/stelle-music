@@ -1,4 +1,4 @@
-import { Declare, type GuildCommandContext, LocalesT, Options, SubCommand, createIntegerOption } from "seyfert";
+import { createIntegerOption, Declare, type GuildCommandContext, LocalesT, Options, SubCommand } from "seyfert";
 import { Shortcut } from "yunaforseyfert";
 
 const options = {

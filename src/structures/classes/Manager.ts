@@ -5,9 +5,8 @@ import { Constants } from "#stelle/utils/data/constants.js";
 import { autoPlayFunction } from "#stelle/utils/functions/autoplay.js";
 import { requesterTransformer } from "#stelle/utils/functions/utils.js";
 import { LavalinkHandler } from "#stelle/utils/manager/handler.js";
-
-import { RedisQueueStore } from "./Store.js";
 import { RedisClient } from "./modules/Redis.js";
+import { RedisQueueStore } from "./Store.js";
 
 /**
  *

@@ -1,7 +1,6 @@
 import { ComponentCommand, type GuildComponentContext, Middlewares } from "seyfert";
-import { editButtonComponents } from "#stelle/utils/functions/utils.js";
-
 import { Constants } from "#stelle/utils/data/constants.js";
+import { editButtonComponents } from "#stelle/utils/functions/utils.js";
 
 @Middlewares(["checkNodes", "checkVoiceChannel", "checkBotVoiceChannel", "checkPlayer", "checkTracks"])
 export default class AutoplayComponent extends ComponentCommand {

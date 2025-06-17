@@ -1,5 +1,5 @@
 import type { LavalinkManagerEvents, NodeManagerEvents } from "lavalink-client";
-import { type LavalinkEvent, type LavalinkEventRun, type LavalinkEventType, LavalinkEventTypes, type LavalinkEvents } from "#stelle/types";
+import { type LavalinkEvent, type LavalinkEventRun, type LavalinkEvents, type LavalinkEventType, LavalinkEventTypes } from "#stelle/types";
 
 /**
  * Class representing a lavalink event.

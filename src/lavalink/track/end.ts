@@ -1,7 +1,6 @@
 import { LavalinkEventTypes } from "#stelle/types";
-import { createLavalinkEvent } from "#stelle/utils/manager/events.js";
-
 import { Constants } from "#stelle/utils/data/constants.js";
+import { createLavalinkEvent } from "#stelle/utils/manager/events.js";
 
 export default createLavalinkEvent({
     name: "trackEnd",

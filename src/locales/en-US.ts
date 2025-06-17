@@ -1,7 +1,6 @@
 import type { RepeatMode } from "lavalink-client";
-import { type PausedState, type PermissionNames, StelleCategory } from "#stelle/types";
-
 import { ApplicationCommandOptionType } from "seyfert/lib/types/index.js";
+import { type PausedState, type PermissionNames, StelleCategory } from "#stelle/types";
 
 /**
  * The English locale for Stelle.

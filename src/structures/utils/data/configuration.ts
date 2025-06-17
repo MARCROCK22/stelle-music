@@ -1,9 +1,7 @@
-import type { LoadableStelleConfiguration, StelleEnvironment } from "#stelle/types";
-
-import { InvalidConfiguration } from "#stelle/utils/errors.js";
-
 import { join } from "node:path";
 import { pathToFileURL } from "node:url";
+import type { LoadableStelleConfiguration, StelleEnvironment } from "#stelle/types";
+import { InvalidConfiguration } from "#stelle/utils/errors.js";
 
 // extract the environment variables from the .env file
 const { TOKEN, DATABASE_URL, ERRORS_WEBHOOK, REDIS_HOST, REDIS_PORT, REDIS_PASSWORD } = process.env;

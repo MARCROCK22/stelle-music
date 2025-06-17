@@ -1,10 +1,8 @@
 import { ComponentCommand, type GuildComponentContext, Middlewares } from "seyfert";
 import { ButtonStyle } from "seyfert/lib/types/index.js";
-
+import type { PausedState } from "#stelle/types";
 import { Constants } from "#stelle/utils/data/constants.js";
 import { editButtonComponents } from "#stelle/utils/functions/utils.js";
-
-import type { PausedState } from "#stelle/types";
 
 @Middlewares(["checkNodes", "checkVoiceChannel", "checkBotVoiceChannel", "checkPlayer"])
 export default class PauseTrackComponent extends ComponentCommand {

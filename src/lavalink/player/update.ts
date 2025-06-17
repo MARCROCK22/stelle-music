@@ -1,9 +1,8 @@
 import type { PlayerJson } from "lavalink-client";
 import { LavalinkEventTypes, type SessionJson, type StelleUser } from "#stelle/types";
+import { Constants } from "#stelle/utils/data/constants.js";
 import { omitKeys } from "#stelle/utils/functions/utils.js";
 import { createLavalinkEvent } from "#stelle/utils/manager/events.js";
-
-import { Constants } from "#stelle/utils/data/constants.js";
 import { Sessions } from "#stelle/utils/manager/sessions.js";
 
 export default createLavalinkEvent({

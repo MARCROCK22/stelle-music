@@ -1,5 +1,6 @@
 import {
     Command,
+    createIntegerOption,
     Declare,
     type GuildCommandContext,
     LocalesT,
@@ -7,7 +8,6 @@ import {
     Middlewares,
     Options,
     type WebhookMessage,
-    createIntegerOption,
 } from "seyfert";
 import { StelleCategory } from "#stelle/types";
 import { StelleOptions } from "#stelle/utils/decorator.js";

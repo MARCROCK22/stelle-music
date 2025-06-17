@@ -1,5 +1,6 @@
 import {
     Command,
+    createStringOption,
     Declare,
     Embed,
     type GuildCommandContext,
@@ -8,18 +9,14 @@ import {
     Middlewares,
     Options,
     type WebhookMessage,
-    createStringOption,
 } from "seyfert";
-import { StelleCategory, type StelleUser } from "#stelle/types";
-import { StelleOptions } from "#stelle/utils/decorator.js";
-
 import { EmbedColors } from "seyfert/lib/common/index.js";
 import { MessageFlags } from "seyfert/lib/types/index.js";
-
+import { StelleCategory, type StelleUser } from "#stelle/types";
+import { StelleOptions } from "#stelle/utils/decorator.js";
+import { onAutocompleteError } from "#stelle/utils/functions/overrides.js";
 import { TimeFormat } from "#stelle/utils/functions/time.js";
 import { omitKeys, sliceText } from "#stelle/utils/functions/utils.js";
-
-import { onAutocompleteError } from "#stelle/utils/functions/overrides.js";
 
 const options = {
     query: createStringOption({

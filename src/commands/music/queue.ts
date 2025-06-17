@@ -1,7 +1,6 @@
 import { Command, Declare, Embed, type GuildCommandContext, LocalesT, Middlewares } from "seyfert";
-import { StelleOptions } from "#stelle/utils/decorator.js";
-
 import { StelleCategory, type StelleUser } from "#stelle/types";
+import { StelleOptions } from "#stelle/utils/decorator.js";
 import { EmbedPaginator } from "#stelle/utils/paginator.js";
 
 @Declare({

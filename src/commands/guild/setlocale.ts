@@ -1,5 +1,6 @@
 import {
     Command,
+    createStringOption,
     Declare,
     type DefaultLocale,
     type GuildCommandContext,
@@ -7,12 +8,10 @@ import {
     type Message,
     Options,
     type WebhookMessage,
-    createStringOption,
 } from "seyfert";
-import { StelleOptions } from "#stelle/utils/decorator.js";
-
 import { MessageFlags } from "seyfert/lib/types/index.js";
 import { StelleCategory } from "#stelle/types";
+import { StelleOptions } from "#stelle/utils/decorator.js";
 
 const options = {
     locale: createStringOption({

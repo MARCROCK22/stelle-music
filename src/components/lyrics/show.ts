@@ -1,8 +1,7 @@
+import type { LyricsResult } from "lavalink-client";
 import { ActionRow, Button, ComponentCommand, Embed, type GuildComponentContext, Middlewares, type WebhookMessage } from "seyfert";
 import { EmbedColors } from "seyfert/lib/common/index.js";
 import { ButtonStyle, MessageFlags } from "seyfert/lib/types/index.js";
-
-import type { LyricsResult } from "lavalink-client";
 import { EmbedPaginator } from "#stelle/utils/paginator.js";
 
 @Middlewares(["checkNodes", "checkVoiceChannel", "checkBotVoiceChannel", "checkPlayer", "checkTracks"])

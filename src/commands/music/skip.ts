@@ -1,4 +1,4 @@
-import { Command, Declare, type GuildCommandContext, LocalesT, Middlewares, Options, createIntegerOption } from "seyfert";
+import { Command, createIntegerOption, Declare, type GuildCommandContext, LocalesT, Middlewares, Options } from "seyfert";
 import { StelleCategory } from "#stelle/types";
 import { StelleOptions } from "#stelle/utils/decorator.js";
 

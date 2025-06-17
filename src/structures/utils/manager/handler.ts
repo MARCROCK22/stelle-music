@@ -1,9 +1,8 @@
+import { pathToFileURL } from "node:url";
 import type { UsingClient } from "seyfert";
+import { BaseHandler } from "seyfert/lib/common/index.js";
 import type { LavalinkEvents } from "#stelle/types";
 import type { Lavalink } from "./events.js";
-
-import { pathToFileURL } from "node:url";
-import { BaseHandler } from "seyfert/lib/common/index.js";
 
 /**
  * The event parameters of the lavalink events.

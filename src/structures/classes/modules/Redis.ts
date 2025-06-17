@@ -1,7 +1,6 @@
-import type { UsingClient } from "seyfert";
-
 import { deflateRawSync, inflateRawSync } from "node:zlib";
 import { Redis } from "ioredis";
+import type { UsingClient } from "seyfert";
 
 import { Environment } from "#stelle/utils/data/configuration.js";
 

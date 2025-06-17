@@ -1,10 +1,9 @@
-import type { RepeatMode } from "lavalink-client";
-import type { GatewayActivityUpdateData } from "seyfert/lib/types/gateway.js";
-import type { AutoplayState, PausedState, StelleConstants, WorkingDirectory } from "#stelle/types";
-
 import { readFile } from "node:fs/promises";
 import { resolve } from "node:path";
+import type { RepeatMode } from "lavalink-client";
+import type { GatewayActivityUpdateData } from "seyfert/lib/types/gateway.js";
 import { ActivityType } from "seyfert/lib/types/index.js";
+import type { AutoplayState, PausedState, StelleConstants, WorkingDirectory } from "#stelle/types";
 
 // funny thing, it sucks, but it works.
 const packageJson = JSON.parse(await readFile(resolve("package.json"), "utf-8"));

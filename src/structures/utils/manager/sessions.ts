@@ -1,15 +1,12 @@
-import type { LavalinkNodeOptions } from "lavalink-client";
-import type { MakeRequired, RestOrArray } from "seyfert/lib/common/index.js";
-import type { StellePlayerJson } from "#stelle/types";
-
-import { InvalidNodeSession } from "#stelle/utils/errors.js";
-import { ms } from "#stelle/utils/functions/time.js";
-
-import { join } from "node:path";
-
 import { existsSync } from "node:fs";
 import { mkdir } from "node:fs/promises";
+import { join } from "node:path";
+import type { LavalinkNodeOptions } from "lavalink-client";
 import MeowDB from "meowdb";
+import type { MakeRequired, RestOrArray } from "seyfert/lib/common/index.js";
+import type { StellePlayerJson } from "#stelle/types";
+import { InvalidNodeSession } from "#stelle/utils/errors.js";
+import { ms } from "#stelle/utils/functions/time.js";
 
 /**
  * Lavalink node options without the `sessionId`.

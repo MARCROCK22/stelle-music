@@ -2,17 +2,14 @@ import { Client, LimitedCollection, LimitedMemoryAdapter } from "seyfert";
 import { HandleCommand } from "seyfert/lib/commands/handle.js";
 import { ActivityType, ApplicationCommandType, type GatewayPresenceUpdateData, PresenceUpdateStatus } from "seyfert/lib/types/index.js";
 import { Yuna } from "yunaforseyfert";
-
-import type { NonGlobalCommands, StelleConfiguration } from "#stelle/types";
-
 import { StelleMiddlewares } from "#stelle/middlewares";
+import type { NonGlobalCommands, StelleConfiguration } from "#stelle/types";
 import { Configuration } from "#stelle/utils/data/configuration.js";
 import { Constants } from "#stelle/utils/data/constants.js";
-import { StelleContext, getInspect } from "#stelle/utils/functions/utils.js";
-
 import { onBotPermissionsFail, onOptionsError, onPermissionsFail, onRunError } from "#stelle/utils/functions/overrides.js";
 import { sendErrorReport } from "#stelle/utils/functions/report.js";
 import { ms } from "#stelle/utils/functions/time.js";
+import { getInspect, StelleContext } from "#stelle/utils/functions/utils.js";
 
 import { StelleDatabase } from "./Database.js";
 import { StelleManager } from "./Manager.js";
