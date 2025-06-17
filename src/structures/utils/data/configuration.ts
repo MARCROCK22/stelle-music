@@ -1,4 +1,4 @@
-import type { LoadableStelleConfiguration, StelleConfiguration, StelleEnvironment } from "#stelle/types";
+import type { LoadableStelleConfiguration, StelleEnvironment } from "#stelle/types";
 
 import { InvalidConfiguration } from "#stelle/utils/errors.js";
 
@@ -30,28 +30,24 @@ export const Configuration: LoadableStelleConfiguration = {
         const filenames: string[] = ["local.config", "default.config"];
         const extensions: string[] = [".ts", ".js"];
 
-        Object.assign(
-            this,
-            await Promise.any<StelleConfiguration>(
-                extensions.map((ext) => {
-                    return Promise.any<StelleConfiguration>(
-                        filenames.map(async (filename) => {
-                            if (!filename.includes(".config"))
-                                throw new InvalidConfiguration(`Filename '${filename}' does not include '.config'`);
+        for (const filename of filenames) {
+            for (const ext of extensions) {
+                const file = join(directory, `${filename}${ext}`);
 
-                            const file = join(directory, `${filename}${ext}`);
-                            const i = await import(`${pathToFileURL(file)}`);
+                try {
+                    const i = await import(`${pathToFileURL(file)}`);
+                    const x = i.default ?? i;
 
-                            return i.default ?? i;
-                        }),
+                    Object.assign(this, x);
+
+                    return;
+                } catch {
+                    throw new InvalidConfiguration(
+                        `No config file found in '/config/' with any of the filenames: \n- ${filenames.join("\n- ")}`,
                     );
-                }),
-            ).catch(() => {
-                throw new InvalidConfiguration(
-                    `No config file found in '/config/' with any of the filenames: \n- ${filenames.join("\n- ")}`,
-                );
-            }),
-        );
+                }
+            }
+        }
 
         isInitialized = true;
     },

@@ -13,8 +13,10 @@ export default {
     lyricsLines: 10,
     disconnectTime: ms("30s"),
     inviteLink:
-        "https://discord.com/oauth2/authorize?client_id={id}&permissions={permissions}&integration_type=0&scope=bot+applications.commands",
+        "https://discord.com/oauth2/authorize?client_id=1241085977544359968&permissions=36793344&integration_type=0&scope=bot+applications.commands",
     githubLink: "https://github.com/Ganyu-Studios/stelle-music",
+    developerIds: [],
+    guildIds: [],
     nodes: Sessions.resolve(
         {
             id: "SN #1", // <--- AKA Stelle Node
@@ -36,15 +38,13 @@ export default {
         },
         // <--- Add more nodes here if you want...
     ),
-    developerIds: [],
-    guildIds: [],
     color: {
         success: 0x8d86a8,
         extra: 0xece8f1,
     },
     channels: {
-        guildsId: "", // <-- Guild logs channel,
-        errorsId: "", // <-- Errors logs channel.
+        guildsId: "the-id-was-here", // <-- Guild logs channel,
+        errorsId: "the-id-wasn't-here", // <-- Errors logs channel.
     },
     permissions: {
         stagePermissions: ["MuteMembers"],

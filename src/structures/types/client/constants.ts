@@ -59,6 +59,12 @@ export interface StelleConstants {
      */
     readonly Debug: boolean;
     /**
+     * Check if Stelle is running in beta mode. (Only if the flag is provided.)
+     * @type {boolean}
+     * @default false
+     */
+    readonly Beta: boolean;
+    /**
      * An array of activities to be used in the presence.
      * @param {ActivityOptions} options The options for the activity.
      * @type {GatewayActivityUpdateData[]}

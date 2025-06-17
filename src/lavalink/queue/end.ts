@@ -11,6 +11,7 @@ export default createLavalinkEvent({
     async run(client, player): Promise<void> {
         if (!(player.textChannelId && player.voiceChannelId)) return;
 
+        // only unsubscribe if the queue is ended.
         const lyricsId = player.get<string | undefined>("lyricsId");
         if (lyricsId) {
             await client.messages.delete(lyricsId, player.textChannelId).catch(() => null);

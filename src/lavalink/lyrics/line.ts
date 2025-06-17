@@ -24,8 +24,6 @@ export default createLavalinkEvent({
             player.set("lyricsId", undefined);
             player.set("lyrics", undefined);
 
-            //player.set("lyricsEnabled", undefined); // Let's test this for a while.
-
             return;
         }
 

@@ -34,11 +34,12 @@
         "typecheck": "tsc --noEmit",
         "clean": "node ./scripts/clean.mjs && pnpm build",
         "start": "node ./dist/index.js",
-        "dev": "tsx ./src/index.ts --debug --dev",
+        "dev": "tsx ./src/index.ts --debug --dev --beta",
         "lint": "biome lint --write .",
         "format": "biome check --write .",
         "generate": "prisma generate",
         "push": "prisma db push",
+        "beta": "node ./dist/index.js --beta",
         "prepare": "husky"
     },
     "lint-staged": {
@@ -62,7 +63,7 @@
     },
     "devDependencies": {
         "@biomejs/biome": "^1.9.4",
-        "@types/node": "^24.0.1",
+        "@types/node": "^24.0.3",
         "husky": "^9.1.7",
         "lint-staged": "^16.1.2",
         "prisma": "^6.9.0",

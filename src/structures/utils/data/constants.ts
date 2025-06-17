@@ -17,6 +17,7 @@ export const Constants: StelleConstants = {
     Version: packageJson.version,
     Dev: process.argv.includes("--dev"),
     Debug: process.argv.includes("--debug"),
+    Beta: process.argv.includes("--beta"),
     PauseState(state): PausedState {
         return state ? "resume" : "pause";
     },
