@@ -28,7 +28,7 @@ export const Configuration: LoadableStelleConfiguration = {
         const filenames: string[] = ["local.config", "default.config"];
         const extensions: string[] = [".ts", ".js"];
 
-        let found = false;
+        let isFound = false;
 
         for (const filename of filenames) {
             for (const ext of extensions) {
@@ -42,16 +42,16 @@ export const Configuration: LoadableStelleConfiguration = {
                     if (!x || (typeof x === "object" && !Object.keys(x).length)) continue;
 
                     Object.assign(this, x);
-                    found = true;
+                    isFound = true;
 
                     break;
                 } catch {}
             }
 
-            if (found) break;
+            if (isFound) break;
         }
 
-        if (!found) {
+        if (!isFound) {
             throw new InvalidConfiguration(`No config file found in '/config/' with any of the filenames: \n- ${filenames.join("\n- ")}`);
         }
 
