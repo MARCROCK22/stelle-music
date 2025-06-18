@@ -118,11 +118,15 @@ export default class LyricsShowComponent extends ComponentCommand {
 
         const message: WebhookMessage = await ctx.editOrReply({ embeds: [embed], components: [row] }, true);
 
+        // subscribe to lyrics if not already enabled
         const isEnabled: boolean = !!player.get<boolean | undefined>("lyricsEnabled");
-        if (!isEnabled) await player.subscribeLyrics();
+        if (!isEnabled) {
+            await player.subscribeLyrics();
+
+            player.set("lyricsEnabled", true);
+        }
 
         player.set("lyrics", lyrics);
         player.set("lyricsId", message.id);
-        player.set("lyricsEnabled", true);
     }
 }

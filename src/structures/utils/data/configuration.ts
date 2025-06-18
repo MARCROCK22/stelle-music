@@ -1,6 +1,6 @@
 import { join } from "node:path";
 import { pathToFileURL } from "node:url";
-import type { LoadableStelleConfiguration, StelleEnvironment } from "#stelle/types";
+import type { LoadableStelleConfiguration, StelleConfiguration, StelleEnvironment } from "#stelle/types";
 import { InvalidConfiguration } from "#stelle/utils/errors.js";
 
 // extract the environment variables from the .env file
@@ -34,18 +34,14 @@ export const Configuration: LoadableStelleConfiguration = {
             for (const ext of extensions) {
                 const file = join(directory, `${filename}${ext}`);
 
-                try {
-                    const i = await import(`${pathToFileURL(file)}`).catch(() => null);
-                    if (!i) continue;
+                const i: StelleConfiguration = await import(`${pathToFileURL(file)}`).then((i) => i.default ?? i).catch(() => null);
 
-                    const x = i.default ?? i;
-                    if (!x || (typeof x === "object" && !Object.keys(x).length)) continue;
+                if (!i || (typeof i === "object" && !Object.keys(i).length)) continue;
 
-                    Object.assign(this, x);
-                    isFound = true;
+                Object.assign(this, i);
+                isFound = true;
 
-                    break;
-                } catch {}
+                break;
             }
 
             if (isFound) break;
