@@ -35,7 +35,6 @@ export const Configuration: LoadableStelleConfiguration = {
                 const file = join(directory, `${filename}${ext}`);
 
                 const i: StelleConfiguration = await import(`${pathToFileURL(file)}`).then((i) => i.default ?? i).catch(() => null);
-
                 if (!i || (typeof i === "object" && !Object.keys(i).length)) continue;
 
                 Object.assign(this, i);
