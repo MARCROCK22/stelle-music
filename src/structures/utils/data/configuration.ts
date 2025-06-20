@@ -34,7 +34,7 @@ export const Configuration: LoadableStelleConfiguration = {
             for (const ext of extensions) {
                 const file = join(directory, `${filename}${ext}`);
 
-                const i: StelleConfiguration = await import(`${pathToFileURL(file)}`).then((i) => i.default ?? i).catch(() => null);
+                const i: StelleConfiguration | null = await import(`${pathToFileURL(file)}`).then((i) => i.default ?? i).catch(() => null);
                 if (!i || (typeof i === "object" && !Object.keys(i).length)) continue;
 
                 Object.assign(this, i);
@@ -46,9 +46,8 @@ export const Configuration: LoadableStelleConfiguration = {
             if (isFound) break;
         }
 
-        if (!isFound) {
+        if (!isFound)
             throw new InvalidConfiguration(`No config file found in '/config/' with any of the filenames: \n- ${filenames.join("\n- ")}`);
-        }
 
         isInitialized = true;
     },
