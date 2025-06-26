@@ -19,7 +19,7 @@ let isInitialized: boolean = false;
 //@ts-expect-error The configuration is dynamically loaded.
 export const Configuration: LoadableStelleConfiguration = {
     async load() {
-        if (isInitialized) throw new InvalidConfiguration("Configuration is already initialized. You can't call `load()` multiple times.");
+        if (isInitialized) return;
 
         // *cries in cocogoat*
         const { BaseClient } = await import("seyfert/lib/client/base.js");

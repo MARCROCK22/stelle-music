@@ -77,6 +77,24 @@ interface Sessions {
 }
 
 /**
+ * The cache interface.
+ */
+interface Cache {
+    /**
+     * The filename where the commands cache is stored.
+     * @type {string}
+     * @default "commands.json"
+     */
+    filename: `${string}.json`;
+    /**
+     * The maximum size of the cache.
+     * @type {number}
+     * @default 5
+     */
+    maxSize: number;
+}
+
+/**
  * The configuration interface.
  */
 export interface StelleConfiguration {
@@ -124,18 +142,6 @@ export interface StelleConfiguration {
      */
     githubLink: string;
     /**
-     * The commands cache file name.
-     * @type {string}
-     * @default "commands.json"
-     */
-    fileName: `${string}.json`;
-    /**
-     * The max cache size.
-     * @type {number}
-     * @default 5
-     */
-    cacheSize: number;
-    /**
      * The default player lyrics enabled.
      * @type {number}
      * @default 10
@@ -179,6 +185,11 @@ export interface StelleConfiguration {
      * @type {Sessions}
      */
     sessions: Sessions;
+    /**
+     * The cache configuration.
+     * @type {Cache}
+     */
+    cache: Cache;
 }
 
 /**

@@ -1,12 +1,10 @@
-import { existsSync } from "node:fs";
-import { mkdir } from "node:fs/promises";
-import { join } from "node:path";
 import type { LavalinkNodeOptions } from "lavalink-client";
 import MeowDB from "meowdb";
 import type { MakeRequired, RestOrArray } from "seyfert/lib/common/index.js";
 import type { StellePlayerJson } from "#stelle/types";
 import { InvalidNodeSession } from "#stelle/utils/errors.js";
 import { ms } from "#stelle/utils/functions/time.js";
+import { createDirectory } from "#stelle/utils/functions/utils.js";
 
 /**
  * Lavalink node options without the `sessionId`.
@@ -23,15 +21,7 @@ type RequiredPlayerJson = MakeRequired<StellePlayerJson, "nodeId" | "nodeSession
  * The directory where the cache is stored.
  * @type {string}
  */
-const dir: string = join(process.cwd(), "cache");
-
-/**
- * Check if the cache directory exists.
- * @type {boolean}
- */
-// create the directory if it doesn't exist.
-const isDirectory: boolean = existsSync(dir);
-if (!isDirectory) await mkdir(dir, { recursive: true }).catch(() => null);
+const dir: string = await createDirectory("cache");
 
 /**
  * The storage for player sessions.

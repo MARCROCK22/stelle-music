@@ -6,8 +6,6 @@ export default {
     defaultLocale: "en-US",
     defaultPrefix: "stelle",
     prefixes: ["st!"],
-    fileName: "./cache/commands.json",
-    cacheSize: 5,
     defaultSearchPlatform: "spotify",
     defaultVolume: 100,
     lyricsLines: 10,
@@ -54,5 +52,9 @@ export default {
         enabled: true,
         resumeTime: ms("1min"),
         resumePlayers: true,
+    },
+    cache: {
+        filename: "./cache/commands.json",
+        maxSize: 5,
     },
 } satisfies StelleConfiguration;

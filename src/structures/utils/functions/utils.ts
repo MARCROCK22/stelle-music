@@ -1,5 +1,7 @@
+import { existsSync } from "node:fs";
+import { mkdir } from "node:fs/promises";
+import { isAbsolute, join } from "node:path";
 import { inspect } from "node:util";
-
 import type { Player } from "lavalink-client";
 import { ActionRow, type AnyContext, type Button, type DefaultLocale, extendContext, type TopLevelComponents, User } from "seyfert";
 import { resolvePartialEmoji } from "seyfert/lib/common/index.js";
@@ -199,4 +201,22 @@ export const createBar = (player: Player): string => {
     const emptyLength = size - filledLength;
 
     return `${line.repeat(filledLength).slice(0, -1)}${slider}${line.repeat(emptyLength)}`;
+};
+
+/**
+ *
+ * Create a directory if it doesn't exist.
+ * @param {string} dirname The directory name to create.
+ * @return {Promise<string>} The absolute path of the created directory.
+ */
+export const createDirectory = async (dirname: string): Promise<string> => {
+    const dir: string = ((): string => {
+        if (isAbsolute(dirname)) return dirname;
+        return join(process.cwd(), dirname);
+    })();
+
+    const isExists = existsSync(dir);
+    if (!isExists) await mkdir(dir, { recursive: true });
+
+    return dir;
 };
