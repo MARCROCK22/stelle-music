@@ -18,7 +18,7 @@ let isInitialized: boolean = false;
  */
 //@ts-expect-error The configuration is dynamically loaded.
 export const Configuration: LoadableStelleConfiguration = {
-    async load() {
+    async load(): Promise<void> {
         if (isInitialized) return;
 
         // *cries in cocogoat*
