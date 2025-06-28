@@ -11,7 +11,7 @@ export default {
     lyricsLines: 10,
     disconnectTime: ms("30s"),
     inviteLink:
-        "https://discord.com/oauth2/authorize?client_id=1241085977544359968&permissions=36793344&integration_type=0&scope=bot+applications.commands",
+        "https://discord.com/oauth2/authorize?client_id=1241085977544359968&permissions=36793408&integration_type=0&scope=bot+applications.commands",
     githubLink: "https://github.com/Ganyu-Studios/stelle-music",
     developerIds: [],
     guildIds: [],
