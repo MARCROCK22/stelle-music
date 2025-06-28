@@ -52,7 +52,7 @@ lavalink:
       snapshot: false
     - dependency: "com.github.topi314.lavalyrics:lavalyrics-plugin:7d60077" # https://github.com/topi314/LavaLyrics
       snapshot: true
-    - dependency: "me.duncte123:java-lyrics-plugin:1.6.5" # https://github.com/DuncteBot/java-timed-lyrics
+    - dependency: "me.duncte123:java-lyrics-plugin:1.6.6" # https://github.com/DuncteBot/java-timed-lyrics
       snapshot: false
     - dependency: "com.github.topi314.sponsorblock:sponsorblock-plugin:3.0.1" # https://github.com/topi314/SponsorBlock-Plugin
       snapshot: false
