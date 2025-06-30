@@ -86,7 +86,7 @@ export class StelleDatabase {
             .$connect()
             .then(() => {
                 this.connected = true;
-                this.client.logger.info("Database - Stelle is now connected to the database.");
+                this.client.logger.info("Database - The bot is now connected to the database.");
             })
             .catch((error) => this.client.logger.error(`Database - ${error}`));
     }

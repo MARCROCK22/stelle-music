@@ -31,7 +31,7 @@ export class RedisClient {
      * @param client The client instance.
      */
     constructor(client: UsingClient) {
-        this.redis.once("connect", () => client.logger.info("Redis - Stelle is now connected to Redis."));
+        this.redis.once("connect", () => client.logger.info("Redis - The bot is now connected to Redis."));
         this.redis.on("error", (error) => client.logger.error(`Redis - An error occurred: ${error}`));
     }
 

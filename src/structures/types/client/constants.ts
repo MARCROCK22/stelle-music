@@ -47,19 +47,19 @@ export interface StelleConstants {
      */
     readonly Version: string;
     /**
-     * Check if Stelle is running in development mode. (Only if the flag is provided.)
+     * Check if the bot is running in development mode. (Only if the flag is provided.)
      * @type {boolean}
      * @default false
      */
     readonly Dev: boolean;
     /**
-     * Check if Stelle is running in production mode. (Only if the flag is provided.)
+     * Check if the bot is running in production mode. (Only if the flag is provided.)
      * @type {boolean}
      * @default false
      */
     readonly Debug: boolean;
     /**
-     * Check if Stelle is running in beta mode. (Only if the flag is provided.)
+     * Check if the bot is running in beta mode. (Only if the flag is provided.)
      * @type {boolean}
      * @default false
      */
