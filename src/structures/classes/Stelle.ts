@@ -1,3 +1,4 @@
+import { join } from "node:path";
 import { Client, LimitedCollection, LimitedMemoryAdapter } from "seyfert";
 import { HandleCommand } from "seyfert/lib/commands/handle.js";
 import { ActivityType, ApplicationCommandType, type GatewayPresenceUpdateData, PresenceUpdateStatus } from "seyfert/lib/types/index.js";
@@ -10,7 +11,6 @@ import { onBotPermissionsFail, onOptionsError, onPermissionsFail, onRunError } f
 import { sendErrorReport } from "#stelle/utils/functions/report.js";
 import { ms } from "#stelle/utils/functions/time.js";
 import { getInspect, StelleContext } from "#stelle/utils/functions/utils.js";
-
 import { StelleDatabase } from "./Database.js";
 import { StelleManager } from "./Manager.js";
 
@@ -173,13 +173,15 @@ export class Stelle extends Client<true> {
     public async reload(): Promise<void> {
         this.logger.warn("Attemping to reload...");
 
+        const cachePath = join(Constants.CachePath, Constants.CommandsFile);
+
         try {
             await this.events.reloadAll();
             await this.commands.reloadAll();
             await this.langs.reloadAll();
             await this.manager.reloadAll();
 
-            await this.uploadCommands({ cachePath: this.config.cache.filename });
+            await this.uploadCommands({ cachePath });
 
             this.logger.info("Stelle has been reloaded.");
         } catch (error) {
