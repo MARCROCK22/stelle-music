@@ -18,8 +18,7 @@ export class RedisClient {
         host: Environment.RedisHost,
         port: Environment.RedisPort,
         password: Environment.RedisPassword,
-        username: "default",
-        db: 0,
+        username: Environment.RedisUsername,
         tls: {
             rejectUnauthorized: false,
         },

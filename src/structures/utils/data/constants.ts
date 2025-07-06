@@ -13,6 +13,9 @@ const packageJson = JSON.parse(await readFile(resolve("package.json"), "utf-8"))
  * @type {StelleConstants}
  */
 export const Constants: StelleConstants = {
+    CachePath: "./cache",
+    CommandsFile: "./commands.json",
+    SessionsFile: "./sessions.json",
     Version: packageJson.version,
     Dev: process.argv.includes("--dev"),
     Debug: process.argv.includes("--debug"),

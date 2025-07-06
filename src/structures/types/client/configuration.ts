@@ -81,17 +81,11 @@ interface Sessions {
  */
 interface Cache {
     /**
-     * The filename where the commands cache is stored.
-     * @type {string}
-     * @default "commands.json"
-     */
-    filename: `${string}.json`;
-    /**
      * The maximum size of the cache.
      * @type {number}
      * @default 5
      */
-    maxSize: number;
+    size: number;
 }
 
 /**
@@ -237,4 +231,9 @@ export interface StelleEnvironment {
      * @type {string}
      */
     RedisPassword?: string;
+    /**
+     * The Redis username.
+     * @type {string}
+     */
+    RedisUsername?: string;
 }

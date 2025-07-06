@@ -65,6 +65,24 @@ export interface StelleConstants {
      */
     readonly Beta: boolean;
     /**
+     * The cache path where the bot stores its cache files.
+     * @type {string}
+     * @default "./cache"
+     */
+    readonly CachePath: string;
+    /**
+     * The filename to save the commands cache.
+     * @type {string}
+     * @default "commands.json"
+     */
+    readonly CommandsFile: `${string}.json`;
+    /**
+     * The filename to save the sessions cache.
+     * @type {string}
+     * @default "sessions.json"
+     */
+    readonly SessionsFile: `${string}.json`;
+    /**
      * An array of activities to be used in the presence.
      * @param {ActivityOptions} options The options for the activity.
      * @type {GatewayActivityUpdateData[]}

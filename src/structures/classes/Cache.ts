@@ -24,7 +24,7 @@ export class Cache {
      * @readonly
      */
     readonly internal: LimitedCollection<string, LimitedCollection<CacheKeys, unknown>> = new LimitedCollection({
-        limit: Configuration.cache.maxSize,
+        limit: Configuration.cache.size,
     });
 
     /**

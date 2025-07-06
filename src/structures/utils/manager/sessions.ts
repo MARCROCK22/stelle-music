@@ -2,6 +2,7 @@ import type { LavalinkNodeOptions } from "lavalink-client";
 import MeowDB from "meowdb";
 import type { MakeRequired, RestOrArray } from "seyfert/lib/common/index.js";
 import type { StellePlayerJson } from "#stelle/types";
+import { Constants } from "#stelle/utils/data/constants.js";
 import { InvalidNodeSession } from "#stelle/utils/errors.js";
 import { ms } from "#stelle/utils/functions/time.js";
 import { createDirectory } from "#stelle/utils/functions/utils.js";
@@ -21,13 +22,19 @@ type RequiredPlayerJson = MakeRequired<StellePlayerJson, "nodeId" | "nodeSession
  * The directory where the cache is stored.
  * @type {string}
  */
-const dir: string = await createDirectory("cache");
+const dir: string = await createDirectory(Constants.CachePath);
+
+/**
+ * The name of the sessions file without the `.json` extension.
+ * @type {string}
+ */
+const name = Constants.SessionsFile.replace(/\.json$/, "").trim();
 
 /**
  * The storage for player sessions.
  * @type {MeowDB}
  */
-const storage: MeowDB = new MeowDB({ dir, name: "./sessions" });
+const storage: MeowDB = new MeowDB({ dir, name });
 
 /**
  * The session ids of the nodes.

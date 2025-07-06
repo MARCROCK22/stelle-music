@@ -1,8 +1,8 @@
-import type { StelleConfiguration } from "#stelle/types";
+import { createConfig } from "#stelle/utils/data/configuration.js";
 import { ms } from "#stelle/utils/functions/time.js";
 import { Sessions } from "#stelle/utils/manager/sessions.js";
 
-export default {
+export default createConfig({
     defaultLocale: "en-US",
     defaultPrefix: "stelle",
     prefixes: ["st!"],
@@ -54,7 +54,6 @@ export default {
         resumePlayers: true,
     },
     cache: {
-        filename: "./cache/commands.json",
-        maxSize: 5,
+        size: 5,
     },
-} satisfies StelleConfiguration;
+});

@@ -4,7 +4,7 @@ import type { LoadableStelleConfiguration, StelleConfiguration, StelleEnvironmen
 import { InvalidConfiguration } from "#stelle/utils/errors.js";
 
 // extract the environment variables from the .env file
-const { TOKEN, DATABASE_URL, ERRORS_WEBHOOK, REDIS_HOST, REDIS_PORT, REDIS_PASSWORD } = process.env;
+const { TOKEN, DATABASE_URL, ERRORS_WEBHOOK, REDIS_HOST, REDIS_PORT, REDIS_PASSWORD, REDIS_USERNAME } = process.env;
 
 /**
  * The flag to check if the configuration is initialized.
@@ -28,13 +28,23 @@ export const Configuration: LoadableStelleConfiguration = {
         const filenames: string[] = ["local.config", "default.config"];
         const extensions: string[] = [".ts", ".js"];
 
-        let isFound = false;
+        let isFound: boolean = false;
 
         for (const filename of filenames) {
             for (const ext of extensions) {
                 const file = join(directory, `${filename}${ext}`);
 
-                const i: StelleConfiguration | null = await import(`${pathToFileURL(file)}`).then((i) => i.default ?? i).catch(() => null);
+                const i: StelleConfiguration | null = await import(`${pathToFileURL(file)}`)
+                    .then((i) => i.default ?? i)
+                    .catch((error) => {
+                        if (error.stack.includes("ERR_MODULE_NOT_FOUND"))
+                            throw new InvalidConfiguration(
+                                `The config file '${filename}' does not exist. Please create it or check the path.`,
+                            );
+
+                        throw error;
+                    });
+
                 if (!i || (typeof i === "object" && !Object.keys(i).length)) continue;
 
                 Object.assign(this, i);
@@ -54,6 +64,13 @@ export const Configuration: LoadableStelleConfiguration = {
 };
 
 /**
+ * Creates a new configuration object.
+ * @param {StelleConfiguration} data The configuration data.
+ * @returns {StelleConfiguration} The new configuration object.
+ */
+export const createConfig = (data: StelleConfiguration): StelleConfiguration => data;
+
+/**
  * The environment variables.
  * @type {StelleEnvironment}
  */
@@ -61,7 +78,8 @@ export const Environment: StelleEnvironment = {
     Token: TOKEN,
     DatabaseUrl: DATABASE_URL,
     ErrorsWebhook: ERRORS_WEBHOOK,
-    RedisHost: REDIS_HOST,
-    RedisPort: Number(REDIS_PORT),
+    RedisHost: REDIS_HOST ?? "localhost",
+    RedisPort: Number(REDIS_PORT ?? 6379),
     RedisPassword: REDIS_PASSWORD,
+    RedisUsername: REDIS_USERNAME ?? "default",
 };
