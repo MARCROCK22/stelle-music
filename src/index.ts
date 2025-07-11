@@ -11,6 +11,7 @@ getWatermark();
 import { Logger } from "seyfert";
 import { Stelle } from "#stelle/classes/Stelle.js";
 import { customLogger } from "#stelle/utils/functions/logger.js";
+import { cleanup } from "#stelle/utils/functions/utils.js";
 import { validateEnv } from "#stelle/utils/functions/validate.js";
 
 Logger.customize(customLogger);
@@ -25,3 +26,6 @@ export { client };
 
 // "Warning: Detected unsettled top-level await" my ass
 (async (): Promise<void> => await client.run())();
+
+process.on("SIGINT", cleanup.bind(client));
+process.on("SIGTERM", cleanup.bind(client));

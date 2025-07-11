@@ -92,6 +92,20 @@ export class StelleDatabase {
     }
 
     /**
+     * Disconnect from the database.
+     * @returns {Promise<void>} A promise that returns nothing, yay!
+     */
+    public async disconnect(): Promise<void> {
+        await this.prisma
+            .$disconnect()
+            .then(() => {
+                this.connected = false;
+                this.client.logger.info("Database - The bot is now disconnected from the database.");
+            })
+            .catch((error) => this.client.logger.error(`Database - ${error}`));
+    }
+
+    /**
      *
      * Get the guild locale from the database.
      * @param {string} id The guild id.

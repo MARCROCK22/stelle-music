@@ -3,7 +3,16 @@ import { mkdir } from "node:fs/promises";
 import { isAbsolute, join } from "node:path";
 import { inspect } from "node:util";
 import type { Player } from "lavalink-client";
-import { ActionRow, type AnyContext, type Button, type DefaultLocale, extendContext, type TopLevelComponents, User } from "seyfert";
+import {
+    ActionRow,
+    type AnyContext,
+    type Button,
+    type DefaultLocale,
+    extendContext,
+    type TopLevelComponents,
+    User,
+    type UsingClient,
+} from "seyfert";
 import { resolvePartialEmoji } from "seyfert/lib/common/index.js";
 import { type APIMessageComponentEmoji, ButtonStyle, ComponentType, type LocaleString } from "seyfert/lib/types/index.js";
 import type { EditButtonOptions, Omit, StelleUser } from "#stelle/types";
@@ -24,59 +33,6 @@ interface WebhookObject {
      */
     token: string;
 }
-
-/**
- *
- * Slice the text.
- * @param {string} text The text to slice.
- * @param {number} length The length to slice.
- * @returns {string} The sliced text.
- */
-export const sliceText = (text: string, length: number = 240): string => (text.length > length ? `${text.slice(0, length - 3)}...` : text);
-
-/**
- *
- * Get the inspected object.
- * @param {any} object The object to inspect.
- * @param {number} depth The depth to inspect.
- * @returns {string} The inspected object.
- */
-export const getInspect = (object: any, depth: number = 0): string => inspect(object, { depth });
-
-/**
- *
- * Omit keys from an object.
- * @param {T} obj The object to omit keys.
- * @param {K[]} keys The keys to omit.
- * @returns {Omit<T, K>} The object without the keys.
- */
-export const omitKeys = <T extends Record<string, any>, K extends keyof T>(obj: T, keys: K[]): Omit<T, K> =>
-    Object.fromEntries(Object.entries(obj).filter(([key]) => !keys.includes(key as K))) as Omit<T, K>;
-
-/**
- * Convert a string to snake_case.
- * @param {string} text The text to convert.
- * @returns {string} The converted text.
- */
-export const convertToSnakeCase = (text: string): string => text.replace(/([a-z])([A-Z])/g, "$1_$2").toLowerCase();
-
-/**
- *
- * Check if the value is valid.
- * @param {unknown} value
- * @returns {boolean} True if the value is valid.
- */
-export const isValid = (value: unknown): boolean => {
-    if (value === null || value === undefined) return false;
-
-    if (typeof value === "string" && !value.length) return false;
-    if (typeof value === "object" && !Object.keys(value).length) return false;
-    if (typeof value === "number" && Number.isNaN(Number(value))) return false;
-
-    if (Array.isArray(value) && !value.length) return false;
-
-    return true;
-};
 
 /**
  * The custom context is used to extend the context.
@@ -100,6 +56,24 @@ export const StelleContext = extendContext((i) => ({
         return i.client.database.getLocale(i.guildId);
     },
 }));
+
+/**
+ *
+ * Check if the value is valid.
+ * @param {unknown} value
+ * @returns {boolean} True if the value is valid.
+ */
+export const isValid = (value: unknown): boolean => {
+    if (value === null || value === undefined) return false;
+
+    if (typeof value === "string" && !value.length) return false;
+    if (typeof value === "object" && !Object.keys(value).length) return false;
+    if (typeof value === "number" && Number.isNaN(Number(value))) return false;
+
+    if (Array.isArray(value) && !value.length) return false;
+
+    return true;
+};
 
 /**
  *
@@ -220,3 +194,52 @@ export const createDirectory = async (dirname: string): Promise<string> => {
 
     return dir;
 };
+
+/**
+ * Cleanup function to gracefully shut down the client.
+ * @param this {UsingClient} The client instance.
+ * @returns {void} Aishite, aishite, motte, motte
+ */
+export function cleanup(this: UsingClient): void {
+    this.logger.info("Shutting down the client...");
+
+    this.database.disconnect();
+    this.gateway.disconnectAll();
+
+    process.exit(0);
+}
+
+/**
+ *
+ * Slice the text.
+ * @param {string} text The text to slice.
+ * @param {number} length The length to slice.
+ * @returns {string} The sliced text.
+ */
+export const sliceText = (text: string, length: number = 240): string => (text.length > length ? `${text.slice(0, length - 3)}...` : text);
+
+/**
+ *
+ * Get the inspected object.
+ * @param {any} object The object to inspect.
+ * @param {number} depth The depth to inspect.
+ * @returns {string} The inspected object.
+ */
+export const getInspect = (object: any, depth: number = 0): string => inspect(object, { depth });
+
+/**
+ *
+ * Omit keys from an object.
+ * @param {T} obj The object to omit keys.
+ * @param {K[]} keys The keys to omit.
+ * @returns {Omit<T, K>} The object without the keys.
+ */
+export const omitKeys = <T extends Record<string, any>, K extends keyof T>(obj: T, keys: K[]): Omit<T, K> =>
+    Object.fromEntries(Object.entries(obj).filter(([key]) => !keys.includes(key as K))) as Omit<T, K>;
+
+/**
+ * Convert a string to snake_case.
+ * @param {string} text The text to convert.
+ * @returns {string} The converted text.
+ */
+export const convertToSnakeCase = (text: string): string => text.replace(/([a-z])([A-Z])/g, "$1_$2").toLowerCase();

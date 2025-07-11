@@ -76,19 +76,19 @@ export class RedisQueueStore implements QueueStoreManager {
      *
      * Stringify the value.
      * @param {StoredQueue | string} value The value to stringify.
-     * @returns {Promise<StoredQueue | string>} The stringified value.
+     * @returns {StoredQueue | string} The stringified value.
      */
-    public stringify(value: StoredQueue | string): Promise<StoredQueue | string> {
-        return Promise.resolve<StoredQueue | string>(typeof value === "object" ? JSON.stringify(value) : value);
+    public stringify(value: StoredQueue | string): StoredQueue | string {
+        return typeof value === "object" ? JSON.stringify(value) : value;
     }
 
     /**
      *
      * Parse the value.
      * @param {StoredQueue | string} value The value to parse.
-     * @returns {Promise<PartialStoredQueue>} The parsed value.
+     * @returns {PartialStoredQueue} The parsed value.
      */
-    public parse(value: StoredQueue | string): Promise<PartialStoredQueue> {
-        return Promise.resolve<PartialStoredQueue>(typeof value === "string" ? JSON.parse(value) : value);
+    public parse(value: StoredQueue | string): PartialStoredQueue {
+        return typeof value === "string" ? JSON.parse(value) : value;
     }
 }
