@@ -1,8 +1,7 @@
 import { Command, Declare, type GuildCommandContext, LocalesT, Middlewares } from "seyfert";
-import { StelleOptions } from "#stelle/utils/decorator.js";
-
 import { StelleCategory } from "#stelle/types";
 import { Constants } from "#stelle/utils/data/constants.js";
+import { StelleOptions } from "#stelle/utils/decorator.js";
 
 @Declare({
     name: "autoplay",

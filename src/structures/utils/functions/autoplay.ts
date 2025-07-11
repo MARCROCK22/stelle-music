@@ -12,7 +12,7 @@ type ResolvableTrack = UnresolvedTrack | Track;
  * @type {number}
  * @default 10
  */
-const maxTracks: number = 10;
+const trackLimit: number = 10;
 
 /**
  * Based on:
@@ -29,7 +29,7 @@ const maxTracks: number = 10;
  * @param {ResolvableTrack[]}  tracks The tracks to filter.
  * @returns {ResolvableTrack[]} The filtered tracks.
  */
-const filterTracks = (player: Player, lastTrack: Track, tracks: ResolvableTrack[]): ResolvableTrack[] =>
+const filter = (player: Player, lastTrack: Track, tracks: ResolvableTrack[]): ResolvableTrack[] =>
     tracks.filter(
         (track) =>
             !(
@@ -69,7 +69,7 @@ export async function autoPlayFunction(player: Player, lastTrack?: Track): Promi
             const res = await player.search({ query: `seed_tracks=${ids.join(",")}`, source: "sprec" }, me);
 
             if (res.tracks.length) {
-                const track = filterTracks(player, lastTrack, res.tracks)[Math.floor(Math.random() * res.tracks.length)] as Track;
+                const track = filter(player, lastTrack, res.tracks)[Math.floor(Math.random() * res.tracks.length)] as Track;
                 await player.queue.add(track);
             }
 
@@ -83,7 +83,7 @@ export async function autoPlayFunction(player: Player, lastTrack?: Track): Promi
 
             if (res.tracks.length) {
                 const random = Math.floor(Math.random() * res.tracks.length);
-                const tracks = filterTracks(player, lastTrack, res.tracks).slice(random, random + maxTracks) as Track[];
+                const tracks = filter(player, lastTrack, res.tracks).slice(random, random + trackLimit) as Track[];
                 await player.queue.add(tracks);
             }
 

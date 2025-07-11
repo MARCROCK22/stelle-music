@@ -1,19 +1,16 @@
+import { join } from "node:path";
 import { Client, LimitedCollection, LimitedMemoryAdapter } from "seyfert";
 import { HandleCommand } from "seyfert/lib/commands/handle.js";
 import { ActivityType, ApplicationCommandType, type GatewayPresenceUpdateData, PresenceUpdateStatus } from "seyfert/lib/types/index.js";
 import { Yuna } from "yunaforseyfert";
-
-import type { NonGlobalCommands, StelleConfiguration } from "#stelle/types";
-
 import { StelleMiddlewares } from "#stelle/middlewares";
+import type { NonGlobalCommands, StelleConfiguration } from "#stelle/types";
 import { Configuration } from "#stelle/utils/data/configuration.js";
 import { Constants } from "#stelle/utils/data/constants.js";
-import { StelleContext, getInspect } from "#stelle/utils/functions/utils.js";
-
 import { onBotPermissionsFail, onOptionsError, onPermissionsFail, onRunError } from "#stelle/utils/functions/overrides.js";
 import { sendErrorReport } from "#stelle/utils/functions/report.js";
 import { ms } from "#stelle/utils/functions/time.js";
-
+import { getInspect, StelleContext } from "#stelle/utils/functions/utils.js";
 import { StelleDatabase } from "./Database.js";
 import { StelleManager } from "./Manager.js";
 
@@ -148,7 +145,7 @@ export class Stelle extends Client<true> {
                     client: this.client,
                     logResult: Constants.Debug,
                     afterPrepare: (metadata) => {
-                        if (Constants.Debug) this.client.logger.debug(`Client - Ready to use ${metadata.commands.length} commands !`);
+                        if (Constants.Debug) this.client.logger.debug(`Client - Ready to use ${metadata.commands.length} commands!`);
                     },
                 });
             },
@@ -176,13 +173,15 @@ export class Stelle extends Client<true> {
     public async reload(): Promise<void> {
         this.logger.warn("Attemping to reload...");
 
+        const cachePath = join(Constants.CachePath, Constants.CommandsFile);
+
         try {
             await this.events.reloadAll();
             await this.commands.reloadAll();
             await this.langs.reloadAll();
             await this.manager.reloadAll();
 
-            await this.uploadCommands({ cachePath: this.config.fileName });
+            await this.uploadCommands({ cachePath });
 
             this.logger.info("Stelle has been reloaded.");
         } catch (error) {

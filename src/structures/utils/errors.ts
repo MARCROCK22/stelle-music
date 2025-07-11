@@ -105,3 +105,15 @@ export class InvalidQueue extends Error {
         this.name = "Stelle [InvalidQueue]";
     }
 }
+
+/**
+ * Error thrown when an invalid configuration is provided.
+ * @class InvalidConfiguration
+ * @extends {Error}
+ */
+export class InvalidConfiguration extends Error {
+    constructor(message: string) {
+        super(message);
+        this.name = "Stelle [InvalidConfiguration]";
+    }
+}

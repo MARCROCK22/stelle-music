@@ -1,8 +1,7 @@
+import type { LyricsResult } from "lavalink-client";
 import { ActionRow, Button, ComponentCommand, Embed, type GuildComponentContext, Middlewares, type WebhookMessage } from "seyfert";
 import { EmbedColors } from "seyfert/lib/common/index.js";
 import { ButtonStyle, MessageFlags } from "seyfert/lib/types/index.js";
-
-import type { LyricsResult } from "lavalink-client";
 import { EmbedPaginator } from "#stelle/utils/paginator.js";
 
 @Middlewares(["checkNodes", "checkVoiceChannel", "checkBotVoiceChannel", "checkPlayer", "checkTracks"])
@@ -119,11 +118,15 @@ export default class LyricsShowComponent extends ComponentCommand {
 
         const message: WebhookMessage = await ctx.editOrReply({ embeds: [embed], components: [row] }, true);
 
+        // subscribe to lyrics if not already enabled
         const isEnabled: boolean = !!player.get<boolean | undefined>("lyricsEnabled");
-        if (!isEnabled) await player.subscribeLyrics().catch(() => null);
+        if (!isEnabled) {
+            await player.subscribeLyrics();
+
+            player.set("lyricsEnabled", true);
+        }
 
         player.set("lyrics", lyrics);
         player.set("lyricsId", message.id);
-        player.set("lyricsEnabled", true);
     }
 }

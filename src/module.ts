@@ -2,9 +2,8 @@ import type { ParseClient, ParseLocales, ParseMiddlewares } from "seyfert";
 import type { Stelle } from "#stelle/classes/Stelle.js";
 import type { Options } from "#stelle/types";
 import type { StelleContext } from "#stelle/utils/functions/utils.js";
-import type { GlobalMiddlewares, StelleMiddlewares } from "./middlewares/index.js";
-
 import type English from "./locales/en-US.js";
+import type { GlobalMiddlewares, StelleMiddlewares } from "./middlewares/index.js";
 
 declare module "seyfert" {
     interface UsingClient extends ParseClient<Stelle> {}
@@ -26,5 +25,6 @@ declare module "seyfert" {
 
     interface ExtendedRCLocations {
         lavalink: string;
+        config: string;
     }
 }

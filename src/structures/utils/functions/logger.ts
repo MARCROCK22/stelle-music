@@ -1,5 +1,5 @@
 import { Logger } from "seyfert";
-import { LogLevels, gray, italic, red, rgb24, yellow } from "seyfert/lib/common/index.js";
+import { gray, italic, LogLevels, red, rgb24, yellow } from "seyfert/lib/common/index.js";
 
 import { Configuration } from "#stelle/utils/data/configuration.js";
 

@@ -1,5 +1,6 @@
 import {
     Command,
+    createStringOption,
     Declare,
     type GuildCommandContext,
     LocalesT,
@@ -8,14 +9,11 @@ import {
     type OKFunction,
     Options,
     type WebhookMessage,
-    createStringOption,
 } from "seyfert";
-import { StelleOptions } from "#stelle/utils/decorator.js";
-
 import { EmbedColors } from "seyfert/lib/common/index.js";
-
 import { StelleCategory } from "#stelle/types";
-import { TimeFormat, ms } from "#stelle/utils/functions/time.js";
+import { StelleOptions } from "#stelle/utils/decorator.js";
+import { ms, TimeFormat } from "#stelle/utils/functions/time.js";
 
 const options = {
     time: createStringOption({

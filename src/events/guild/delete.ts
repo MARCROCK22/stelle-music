@@ -1,4 +1,4 @@
-import { Embed, Guild, createEvent } from "seyfert";
+import { createEvent, Embed, Guild } from "seyfert";
 import { Constants } from "#stelle/utils/data/constants.js";
 
 export default createEvent({

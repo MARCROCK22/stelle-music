@@ -44,6 +44,7 @@ export default class BotSubcommand extends SubCommand {
                     value: messages.commands.info.bot.fields.system.value({
                         memory: formatMemoryUsage(process.memoryUsage().rss),
                         uptime: Math.floor(client.readyTimestamp / 1000),
+                        beta: Constants.Beta ? "`✅`" : "`❌`",
                         version: Constants.Version,
                     }),
                 },

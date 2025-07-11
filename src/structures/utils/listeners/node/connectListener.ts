@@ -1,6 +1,8 @@
 import type { LavalinkNode, Player } from "lavalink-client";
 import type { UsingClient } from "seyfert";
 
+import { Constants } from "#stelle/utils/data/constants.js";
+
 /**
  *
  * The listener for the `connected` event of the Lavalink node.
@@ -15,20 +17,38 @@ export async function connectListener(client: UsingClient, node: LavalinkNode): 
         if (players.length && !node.resuming.enabled) {
             for (const player of players) {
                 try {
+                    if (!player.playing && !player.paused && !(player.queue.tracks.length + Number(!!player.queue.current))) {
+                        if (Constants.Debug) client.debugger?.info(`Lavalink - Player destroyed: ${player.guildId} on node ${node.id}.`);
+
+                        await player.destroy();
+
+                        return;
+                    }
+
                     const messageId = player.get<string | undefined>("messageId");
                     const channelId = player.textChannelId ?? player.options.textChannelId;
 
-                    if (messageId && channelId) await client.messages.delete(channelId, messageId);
+                    if (messageId && channelId) await client.messages.delete(messageId, channelId).catch(() => null);
 
-                    await player.play({
-                        track: { encoded: player.queue.current?.encoded },
-                        paused: player.paused,
-                        volume: player.volume,
-                        position: player.position,
-                        voice: player.voice,
+                    const track = player.queue.current;
+
+                    await player.node.updatePlayer({
+                        guildId: player.guildId,
+                        playerOptions: { voice: player.voice },
                     });
 
+                    await player.connect();
                     await player.queue.utils.sync(false, true);
+
+                    if (track)
+                        await player.play({
+                            track,
+                            noReplace: false,
+                            position: player.lastPosition,
+                            paused: player.paused,
+                        });
+
+                    if (Constants.Debug) client.debugger?.info(`Lavalink - Player resumed: ${player.guildId} on node ${node.id}.`);
                 } catch (error) {
                     client.logger.error(`Lavalink - Error resuming the player: ${player.guildId} ${error}`);
                 }

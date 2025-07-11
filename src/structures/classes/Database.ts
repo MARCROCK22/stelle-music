@@ -86,7 +86,21 @@ export class StelleDatabase {
             .$connect()
             .then(() => {
                 this.connected = true;
-                this.client.logger.info("Database - Stelle is now connected to the database.");
+                this.client.logger.info("Database - The bot is now connected to the database.");
+            })
+            .catch((error) => this.client.logger.error(`Database - ${error}`));
+    }
+
+    /**
+     * Disconnect from the database.
+     * @returns {Promise<void>} A promise that returns nothing, yay!
+     */
+    public async disconnect(): Promise<void> {
+        await this.prisma
+            .$disconnect()
+            .then(() => {
+                this.connected = false;
+                this.client.logger.info("Database - The bot is now disconnected from the database.");
             })
             .catch((error) => this.client.logger.error(`Database - ${error}`));
     }

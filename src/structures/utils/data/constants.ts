@@ -1,10 +1,9 @@
-import type { RepeatMode } from "lavalink-client";
-import type { GatewayActivityUpdateData } from "seyfert/lib/types/gateway.js";
-import type { AutoplayState, PausedState, StelleConstants, WorkingDirectory } from "#stelle/types";
-
 import { readFile } from "node:fs/promises";
 import { resolve } from "node:path";
+import type { RepeatMode } from "lavalink-client";
+import type { GatewayActivityUpdateData } from "seyfert/lib/types/gateway.js";
 import { ActivityType } from "seyfert/lib/types/index.js";
+import type { AutoplayState, PausedState, StelleConstants, WorkingDirectory } from "#stelle/types";
 
 // funny thing, it sucks, but it works.
 const packageJson = JSON.parse(await readFile(resolve("package.json"), "utf-8"));
@@ -14,9 +13,13 @@ const packageJson = JSON.parse(await readFile(resolve("package.json"), "utf-8"))
  * @type {StelleConstants}
  */
 export const Constants: StelleConstants = {
+    CachePath: "./cache",
+    CommandsFile: "./commands.json",
+    SessionsFile: "./sessions.json",
     Version: packageJson.version,
     Dev: process.argv.includes("--dev"),
     Debug: process.argv.includes("--debug"),
+    Beta: process.argv.includes("--beta"),
     PauseState(state): PausedState {
         return state ? "resume" : "pause";
     },

@@ -47,17 +47,41 @@ export interface StelleConstants {
      */
     readonly Version: string;
     /**
-     * Check if Stelle is running in development mode. (Only if the flag is provided.)
+     * Check if the bot is running in development mode. (Only if the flag is provided.)
      * @type {boolean}
      * @default false
      */
     readonly Dev: boolean;
     /**
-     * Check if Stelle is running in production mode. (Only if the flag is provided.)
+     * Check if the bot is running in production mode. (Only if the flag is provided.)
      * @type {boolean}
      * @default false
      */
     readonly Debug: boolean;
+    /**
+     * Check if the bot is running in beta mode. (Only if the flag is provided.)
+     * @type {boolean}
+     * @default false
+     */
+    readonly Beta: boolean;
+    /**
+     * The cache path where the bot stores its cache files.
+     * @type {string}
+     * @default "./cache"
+     */
+    readonly CachePath: string;
+    /**
+     * The filename to save the commands cache.
+     * @type {string}
+     * @default "commands.json"
+     */
+    readonly CommandsFile: `${string}.json`;
+    /**
+     * The filename to save the sessions cache.
+     * @type {string}
+     * @default "sessions.json"
+     */
+    readonly SessionsFile: `${string}.json`;
     /**
      * An array of activities to be used in the presence.
      * @param {ActivityOptions} options The options for the activity.

@@ -1,9 +1,7 @@
-import { LavalinkEventTypes } from "#stelle/types";
-import { createLavalinkEvent } from "#stelle/utils/manager/events.js";
-
 import { Embed } from "seyfert";
-
+import { LavalinkEventTypes } from "#stelle/types";
 import { Constants } from "#stelle/utils/data/constants.js";
+import { createLavalinkEvent } from "#stelle/utils/manager/events.js";
 
 export default createLavalinkEvent({
     name: "queueEnd",
@@ -11,12 +9,13 @@ export default createLavalinkEvent({
     async run(client, player): Promise<void> {
         if (!(player.textChannelId && player.voiceChannelId)) return;
 
+        // only unsubscribe if the queue is ended.
         const lyricsId = player.get<string | undefined>("lyricsId");
         if (lyricsId) {
             await client.messages.delete(lyricsId, player.textChannelId).catch(() => null);
 
             const isEnabled = !!player.get<boolean | undefined>("lyricsEnabled");
-            if (isEnabled) await player.unsubscribeLyrics(player.guildId).catch(() => null);
+            if (isEnabled) await player.unsubscribeLyrics();
 
             player.set("lyricsId", undefined);
             player.set("lyrics", undefined);

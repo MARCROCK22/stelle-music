@@ -1,15 +1,11 @@
 import type { LavalinkNodeOptions } from "lavalink-client";
+import MeowDB from "meowdb";
 import type { MakeRequired, RestOrArray } from "seyfert/lib/common/index.js";
 import type { StellePlayerJson } from "#stelle/types";
-
+import { Constants } from "#stelle/utils/data/constants.js";
 import { InvalidNodeSession } from "#stelle/utils/errors.js";
 import { ms } from "#stelle/utils/functions/time.js";
-
-import { join } from "node:path";
-
-import { existsSync } from "node:fs";
-import { mkdir } from "node:fs/promises";
-import MeowDB from "meowdb";
+import { createDirectory } from "#stelle/utils/functions/utils.js";
 
 /**
  * Lavalink node options without the `sessionId`.
@@ -26,21 +22,19 @@ type RequiredPlayerJson = MakeRequired<StellePlayerJson, "nodeId" | "nodeSession
  * The directory where the cache is stored.
  * @type {string}
  */
-const dir: string = join(process.cwd(), "cache");
+const dir: string = await createDirectory(Constants.CachePath);
 
 /**
- * Check if the cache directory exists.
- * @type {boolean}
+ * The name of the sessions file without the `.json` extension.
+ * @type {string}
  */
-// create the directory if it doesn't exist.
-const isDirectory: boolean = existsSync(dir);
-if (!isDirectory) await mkdir(dir, { recursive: true }).catch(() => null);
+const name = Constants.SessionsFile.replace(/\.json$/, "").trim();
 
 /**
  * The storage for player sessions.
  * @type {MeowDB}
  */
-const storage: MeowDB = new MeowDB({ dir, name: "./sessions" });
+const storage: MeowDB = new MeowDB({ dir, name });
 
 /**
  * The session ids of the nodes.

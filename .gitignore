@@ -4,4 +4,5 @@ logs
 generated
 cache
 
+local.config.*
 .env

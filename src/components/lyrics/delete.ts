@@ -15,9 +15,9 @@ export default class LyricsDeleteComponent extends ComponentCommand {
         if (!track) return;
 
         await ctx.deferUpdate();
-        await ctx.deleteResponse();
+        await ctx.deleteResponse().catch(() => null);
 
-        player.set("lyricsEnabled", undefined);
+        player.set("lyrics", undefined);
         player.set("lyricsId", undefined);
     }
 }

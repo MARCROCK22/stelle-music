@@ -1,12 +1,9 @@
 import { ActionRow, Button, Embed } from "seyfert";
-import { createLavalinkEvent } from "#stelle/utils/manager/events.js";
-
 import { ButtonStyle } from "seyfert/lib/types/index.js";
-
 import { LavalinkEventTypes, type StelleUser } from "#stelle/types";
-import { TimeFormat } from "#stelle/utils/functions/time.js";
-
 import { Constants } from "#stelle/utils/data/constants.js";
+import { TimeFormat } from "#stelle/utils/functions/time.js";
+import { createLavalinkEvent } from "#stelle/utils/manager/events.js";
 
 export default createLavalinkEvent({
     name: "trackStart",

@@ -1,7 +1,6 @@
 import type { RepeatMode } from "lavalink-client";
-import { type PausedState, type PermissionNames, StelleCategory } from "#stelle/types";
-
 import { ApplicationCommandOptionType } from "seyfert/lib/types/index.js";
+import { type PausedState, type PermissionNames, StelleCategory } from "#stelle/types";
 
 /**
  * The English locale for Stelle.
@@ -48,8 +47,8 @@ export default {
                         },
                         system: {
                             name: "`📋` System",
-                            value: ({ memory, uptime, version }: IBotInfoSystemField): string =>
-                                `\`🧠\` Memory: \`${memory}\`\n\`📜\` Version: \`v${version}\`\n\`🕛\` Uptime: <t:${uptime}:R>`,
+                            value: ({ memory, uptime, version, beta }: IBotInfoSystemField): string =>
+                                `\`🧠\` Memory: \`${memory}\`\n\`📜\` Version: \`v${version}\`\n\`🕛\` Uptime: <t:${uptime}:R>\n\`🧪\` Beta: \`${beta}\``,
                         },
                     },
                 },
@@ -86,8 +85,8 @@ export default {
                 newLocale: ({ locale }: ILocale): string => `\`✅\` The locale of **Stelle** is now: \`${locale}\``,
             },
             ping: {
-                response: ({ wsPing, clientPing, shardPing }: IPing): string =>
-                    `\`🌐\` Pong! (**Client**: \`${wsPing}ms\` - **API**: \`${clientPing}ms\` - **Shard**: \`${shardPing}ms\`)`,
+                response: ({ wsPing, clientPing, shardPing, shardId }: IPing): string =>
+                    `\`🌐\` Pong! (**Client**: \`${wsPing}ms\` - **API**: \`${clientPing}ms\` - **Shard (${shardId})**: \`${shardPing}ms\`)`,
                 message: "`🪶` Calculating...",
             },
             play: {
@@ -423,7 +422,7 @@ type ILyricsEmbedFooter = { userName: string };
 type ILyricsEmbedDescription = { lines: string; provider: string; author: string };
 type ILyricsEmbedTitle = { title: string };
 type IBotInfoGeneralField = { guilds: number; users: number; players: number };
-type IBotInfoSystemField = { memory: string; uptime: number; version: string };
+type IBotInfoSystemField = { memory: string; uptime: number; version: string; beta: string };
 type IBotInfo = { clientName: string; defaultPrefix: string };
 type IHelpMenuEmbed = { clientName: string; category: string };
 type IVoiceStatus = { title: string; author: string };
@@ -450,5 +449,5 @@ type IPlayTrack = { title: string; url: string; duration: string; volume: number
 type IPlayList = { query: string; playlist: string; volume: number; requester: string; tracks: number };
 type IChannel = { channelId: string };
 type IUser = { userId: string };
-type IPing = { wsPing: number; clientPing: number; shardPing: number };
+type IPing = { wsPing: number; clientPing: number; shardPing: number; shardId: number };
 type ICooldown = { time: number };

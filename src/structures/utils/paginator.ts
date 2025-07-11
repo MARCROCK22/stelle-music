@@ -12,14 +12,6 @@ import {
     type WebhookMessage,
 } from "seyfert";
 import {
-    type APIButtonComponentWithCustomId,
-    type APIMessageActionRowComponent,
-    ButtonStyle,
-    ComponentType,
-    MessageFlags,
-} from "seyfert/lib/types/index.js";
-
-import {
     type Awaitable,
     EmbedColors,
     type InteractionCreateBodyRequest,
@@ -28,6 +20,13 @@ import {
     type MessageWebhookCreateBodyRequest,
 } from "seyfert/lib/common/index.js";
 import type { CreateComponentCollectorResult } from "seyfert/lib/components/handler.js";
+import {
+    type APIButtonComponentWithCustomId,
+    type APIMessageActionRowComponent,
+    ButtonStyle,
+    ComponentType,
+    MessageFlags,
+} from "seyfert/lib/types/index.js";
 import type { Omit } from "#stelle/types";
 import { InvalidComponentRun, InvalidComponentType, InvalidEmbedsLength, InvalidMessage, InvalidPageNumber, InvalidRow } from "./errors.js";
 

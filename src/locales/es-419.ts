@@ -45,8 +45,8 @@ export default {
                         },
                         system: {
                             name: "`📋` Sistema",
-                            value: ({ memory, uptime, version }): string =>
-                                `\`🧠\` Memoria: \`${memory}\`\n\`📜\` Version: \`v${version}\`\n\`🕛\` Tiempo de Encendido: <t:${uptime}:R>`,
+                            value: ({ memory, uptime, version, beta }): string =>
+                                `\`🧠\` Memoria: \`${memory}\`\n\`📜\` Version: \`v${version}\`\n\`🕛\` Tiempo de Encendido: <t:${uptime}:R>\n\`🧪\` Beta: \`${beta}\``,
                         },
                     },
                 },
@@ -83,8 +83,8 @@ export default {
             },
             ping: {
                 message: "`🪶` Calculando...",
-                response: ({ wsPing, clientPing, shardPing }): string =>
-                    `\`🌐\` Pong! (**Cliente**: \`${wsPing}ms\` - **API**: \`${clientPing}ms\` - **Fragmento**: \`${shardPing}ms\`)`,
+                response: ({ wsPing, clientPing, shardPing, shardId }): string =>
+                    `\`🌐\` Pong! (**Cliente**: \`${wsPing}ms\` - **API**: \`${clientPing}ms\` - **Fragmento (${shardId})**: \`${shardPing}ms\`)`,
             },
             play: {
                 undetermined: "Indeterminado",

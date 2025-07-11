@@ -1,12 +1,9 @@
 {
-    "$schema": "https://biomejs.dev/schemas/1.9.0/schema.json",
-    "organizeImports": {
-        "enabled": true
-    },
+    "$schema": "https://biomejs.dev/schemas/2.0.6/schema.json",
+    "assist": { "actions": { "source": { "organizeImports": "on" } } },
     "linter": {
         "enabled": true,
         "rules": {
-            "all": true,
             "suspicious": {
                 "noExplicitAny": "off",
                 "noConfusingVoidType": "off",
@@ -22,9 +19,15 @@
                 "useBlockStatements": "off",
                 "useFilenamingConvention": "off",
                 "useNamingConvention": "off",
-                "useSingleCaseStatement": "off",
                 "useExplicitLengthCheck": "off",
-                "useDefaultSwitchClause": "off"
+                "useDefaultSwitchClause": "off",
+                "useAsConstAssertion": "error",
+                "useDefaultParameterLast": "error",
+                "useEnumInitializers": "error",
+                "useSelfClosingElements": "error",
+                "useSingleVarDeclarator": "error",
+                "noUnusedTemplateLiteral": "error",
+                "noUselessElse": "error"
             },
             "complexity": {
                 "noBannedTypes": "off",
@@ -42,7 +45,8 @@
             },
             "correctness": {
                 "noNodejsModules": "off",
-                "noUndeclaredDependencies": "off"
+                "noUndeclaredDependencies": "off",
+                "noSwitchDeclarations": "off"
             },
             "performance": {
                 "noBarrelFile": "off",
@@ -52,7 +56,14 @@
     },
     "files": {
         "ignoreUnknown": true,
-        "ignore": [".vscode", "node_modules", "dist", "generated", "cache"]
+        "includes": [
+            "**",
+            "!**/.vscode",
+            "!**/node_modules",
+            "!**/dist",
+            "!**/generated",
+            "!**/cache"
+        ]
     },
     "json": {
         "formatter": {

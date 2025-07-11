@@ -1,7 +1,6 @@
 import { Command, type CommandContext, Declare, type Message, type WebhookMessage } from "seyfert";
-import { StelleOptions } from "#stelle/utils/decorator.js";
-
 import { EmbedColors } from "seyfert/lib/common/index.js";
+import { StelleOptions } from "#stelle/utils/decorator.js";
 
 @Declare({
     name: "reload",

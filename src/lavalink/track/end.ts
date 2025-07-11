@@ -1,7 +1,6 @@
 import { LavalinkEventTypes } from "#stelle/types";
-import { createLavalinkEvent } from "#stelle/utils/manager/events.js";
-
 import { Constants } from "#stelle/utils/data/constants.js";
+import { createLavalinkEvent } from "#stelle/utils/manager/events.js";
 
 export default createLavalinkEvent({
     name: "trackEnd",
@@ -18,7 +17,6 @@ export default createLavalinkEvent({
 
             player.set("lyricsId", undefined);
             player.set("lyrics", undefined);
-            player.set("lyricsEnabled", undefined);
         }
 
         player.set("messageId", undefined);

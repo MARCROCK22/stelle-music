@@ -1,3 +1,4 @@
+import { join } from "node:path";
 import { createEvent } from "seyfert";
 import { Constants } from "#stelle/utils/data/constants.js";
 import { changePresence } from "#stelle/utils/functions/presence.js";
@@ -8,6 +9,7 @@ export default createEvent({
         client.readyTimestamp = Date.now();
 
         const clientName = `${user.username} v${Constants.Version}`;
+        const cachePath = join(Constants.CachePath, Constants.CommandsFile);
 
         client.logger.info(`API - Logged in as: ${user.username}`);
         client.logger.info(`Client - ${clientName} is now ready on shard #${shardId}.`);
@@ -16,7 +18,7 @@ export default createEvent({
 
         await client.database.connect();
 
-        await client.uploadCommands({ cachePath: client.config.fileName });
+        await client.uploadCommands({ cachePath });
         await client.manager.init({ id: user.id, username: clientName });
     },
 });

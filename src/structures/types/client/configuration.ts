@@ -77,6 +77,18 @@ interface Sessions {
 }
 
 /**
+ * The cache interface.
+ */
+interface Cache {
+    /**
+     * The maximum size of the cache.
+     * @type {number}
+     * @default 5
+     */
+    size: number;
+}
+
+/**
  * The configuration interface.
  */
 export interface StelleConfiguration {
@@ -124,18 +136,6 @@ export interface StelleConfiguration {
      */
     githubLink: string;
     /**
-     * The commands cache file name.
-     * @type {string}
-     * @default "commands.json"
-     */
-    fileName: `${string}.json`;
-    /**
-     * The max cache size.
-     * @type {number}
-     * @default 5
-     */
-    cacheSize: number;
-    /**
      * The default player lyrics enabled.
      * @type {number}
      * @default 10
@@ -179,6 +179,22 @@ export interface StelleConfiguration {
      * @type {Sessions}
      */
     sessions: Sessions;
+    /**
+     * The cache configuration.
+     * @type {Cache}
+     */
+    cache: Cache;
+}
+
+/**
+ * The loadable configuration interface.
+ */
+export interface LoadableStelleConfiguration extends StelleConfiguration {
+    /**
+     * Loads the configuration.
+     * @returns {Promise<void>} A promise that resolves when the configuration is loaded.
+     */
+    load(): Promise<void>;
 }
 
 /**
@@ -215,4 +231,9 @@ export interface StelleEnvironment {
      * @type {string}
      */
     RedisPassword?: string;
+    /**
+     * The Redis username.
+     * @type {string}
+     */
+    RedisUsername?: string;
 }

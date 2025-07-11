@@ -1,7 +1,6 @@
-import type { UsingClient } from "seyfert";
-
 import { deflateRawSync, inflateRawSync } from "node:zlib";
 import { Redis } from "ioredis";
+import type { UsingClient } from "seyfert";
 
 import { Environment } from "#stelle/utils/data/configuration.js";
 
@@ -19,8 +18,7 @@ export class RedisClient {
         host: Environment.RedisHost,
         port: Environment.RedisPort,
         password: Environment.RedisPassword,
-        username: "default",
-        db: 0,
+        username: Environment.RedisUsername,
         tls: {
             rejectUnauthorized: false,
         },
@@ -32,7 +30,7 @@ export class RedisClient {
      * @param client The client instance.
      */
     constructor(client: UsingClient) {
-        this.redis.once("connect", () => client.logger.info("Redis - Stelle is now connected to Redis."));
+        this.redis.once("connect", () => client.logger.info("Redis - The bot is now connected to Redis."));
         this.redis.on("error", (error) => client.logger.error(`Redis - An error occurred: ${error}`));
     }
 
