@@ -86,6 +86,12 @@ interface Cache {
      * @default 5
      */
     size: number;
+    /**
+     * The cache expiration time in milliseconds.
+     * @type {number}
+     * @default ms("5mins")
+     */
+    expire: number;
 }
 
 /**

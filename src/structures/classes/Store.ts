@@ -1,6 +1,5 @@
 import type { QueueStoreManager, StoredQueue } from "lavalink-client";
 import { Constants } from "#stelle/utils/data/constants.js";
-import { InvalidQueue } from "#stelle/utils/errors.js";
 import type { RedisClient } from "./modules/Redis.js";
 
 /**
@@ -46,7 +45,7 @@ export class RedisQueueStore implements QueueStoreManager {
      */
     public async get(id: string): Promise<StoredQueue | string> {
         const data = await this.redis.get<StoredQueue | string>(buildKey(id));
-        if (!data) throw new InvalidQueue(`No queue found for guild ${id}`);
+        if (!data) return "";
 
         return data;
     }
@@ -89,6 +88,7 @@ export class RedisQueueStore implements QueueStoreManager {
      * @returns {PartialStoredQueue} The parsed value.
      */
     public parse(value: StoredQueue | string): PartialStoredQueue {
+        if (typeof value === "string" && !value.length) return {};
         return typeof value === "string" ? JSON.parse(value) : value;
     }
 }

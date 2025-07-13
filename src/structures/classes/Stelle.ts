@@ -9,7 +9,6 @@ import { Configuration } from "#stelle/utils/data/configuration.js";
 import { Constants } from "#stelle/utils/data/constants.js";
 import { onBotPermissionsFail, onOptionsError, onPermissionsFail, onRunError } from "#stelle/utils/functions/overrides.js";
 import { sendErrorReport } from "#stelle/utils/functions/report.js";
-import { ms } from "#stelle/utils/functions/time.js";
 import { getInspect, StelleContext } from "#stelle/utils/functions/utils.js";
 import { StelleDatabase } from "./Database.js";
 import { StelleManager } from "./Manager.js";
@@ -120,8 +119,8 @@ export class Stelle extends Client<true> {
             cache: {
                 adapter: new LimitedMemoryAdapter({
                     message: {
-                        expire: ms("5mins"),
-                        limit: 10,
+                        expire: this.config.cache.expire,
+                        limit: this.config.cache.size,
                     },
                 }),
                 disabledCache: {
@@ -129,6 +128,7 @@ export class Stelle extends Client<true> {
                     emojis: true,
                     stickers: true,
                     roles: true,
+                    overwrites: true,
                     presences: true,
                     stageInstances: true,
                 },

@@ -55,5 +55,6 @@ export default createConfig({
     },
     cache: {
         size: 5,
+        expire: ms("5mins"),
     },
 });
